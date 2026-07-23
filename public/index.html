@@ -15,6 +15,8 @@
             --accent-blue: #3b82f6;
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
+            --error-color: #ef4444;
+            --success-color: #10b981;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -190,7 +192,7 @@
             gap: 12px; 
         }
 
-        .msg { padding: 12px 18px; border-radius: 14px; max-width: 80%; font-size: 0.95rem; line-height: 1.5; }
+        .msg { padding: 12px 18px; border-radius: 14px; max-width: 85%; font-size: 0.95rem; line-height: 1.5; }
         .msg.ia { 
             background: rgba(30, 41, 59, 0.8); 
             align-self: flex-start; 
@@ -229,9 +231,9 @@
         <!-- MODULE 1 : WORKFLOW EMAIL -->
         <div class="card">
             <h2><span class="badge badge-cyan">Workflow</span> Automatisation Emailing</h2>
-            <p>Déclenchez un workflow de transmission automatique de plan d'action de partenariat :</p>
+            <p>Déclenchez un workflow de transmission automatique de dossier de candidature :</p>
             <div class="input-group">
-                <input type="email" id="emailInput" placeholder="Saisissez votre email professionnel...">
+                <input type="email" id="emailInput" placeholder="Saisissez votre adresse email professionnelle...">
                 <button class="btn-cyan" id="btnMail" onclick="sendMail()">🚀 Exécuter</button>
             </div>
             <div id="resMail" class="response-box" style="border-left-color: var(--accent-cyan);"></div>
@@ -280,27 +282,46 @@
     <script>
         // --- 1. EMAIL WORKFLOW ---
         async function sendMail() {
-            const email = document.getElementById('emailInput').value;
+            const emailInput = document.getElementById('emailInput');
+            const email = emailInput.value.trim();
             const resBox = document.getElementById('resMail');
             const btn = document.getElementById('btnMail');
-            if(!email) return;
+            
+            if(!email) {
+                resBox.style.display = 'block';
+                resBox.style.borderLeftColor = 'var(--error-color)';
+                resBox.innerHTML = "⚠️ Veuillez saisir une adresse email valide.";
+                return;
+            }
             
             btn.innerHTML = `<span class="spinner"></span> Traitement...`;
+            btn.disabled = true;
             resBox.style.display = 'block'; 
-            resBox.innerHTML = "⚡ Connexion à l'Apps Script Gmail Engine...";
+            resBox.style.borderLeftColor = 'var(--accent-cyan)';
+            resBox.innerHTML = "⚡ Connexion au moteur d'envoi HTML Gmail...";
             
             try {
                 const req = await fetch('/api/send-email', { 
                     method: 'POST', 
                     headers: {'Content-Type': 'application/json'}, 
-                    body: JSON.stringify({email}) 
+                    body: JSON.stringify({ email }) 
                 });
                 const res = await req.json();
-                resBox.innerHTML = res.message || res.error;
+                
+                if (res.success) {
+                    resBox.style.borderLeftColor = 'var(--success-color)';
+                    resBox.innerHTML = `✅ ${res.message}`;
+                    emailInput.value = '';
+                } else {
+                    resBox.style.borderLeftColor = 'var(--error-color)';
+                    resBox.innerHTML = `❌ ${res.message || "Erreur lors de l'envoi."}`;
+                }
             } catch(e) { 
-                resBox.innerHTML = "❌ Erreur de liaison serveur."; 
+                resBox.style.borderLeftColor = 'var(--error-color)';
+                resBox.innerHTML = "❌ Erreur de liaison avec le serveur."; 
             } finally {
                 btn.innerHTML = `🚀 Exécuter`;
+                btn.disabled = false;
             }
         }
 
@@ -310,27 +331,40 @@
         }
 
         async function askSAV() {
-            const msg = document.getElementById('savInput').value;
+            const savInput = document.getElementById('savInput');
+            const msg = savInput.value.trim();
             const resBox = document.getElementById('resSAV');
             const btn = document.getElementById('btnSAV');
-            if(!msg) return;
+            
+            if(!msg) {
+                resBox.style.display = 'block';
+                resBox.style.borderLeftColor = 'var(--error-color)';
+                resBox.innerHTML = "⚠️ Veuillez décrire la réclamation.";
+                return;
+            }
             
             btn.innerHTML = `<span class="spinner"></span> Analyse...`;
+            btn.disabled = true;
             resBox.style.display = 'block'; 
+            resBox.style.borderLeftColor = 'var(--accent-purple)';
             resBox.innerHTML = "🔍 Analyse sémantique des règles métier...";
             
             try {
                 const req = await fetch('/api/ia-sav', { 
                     method: 'POST', 
                     headers: {'Content-Type': 'application/json'}, 
-                    body: JSON.stringify({message: msg}) 
+                    body: JSON.stringify({ message: msg }) 
                 });
                 const res = await req.json();
-                resBox.innerHTML = res.reply ? res.reply.replace(/\n/g, '<br>') : "Réponse vide.";
+                
+                const replyText = (res.data && res.data.reply) ? res.data.reply : res.message;
+                resBox.innerHTML = replyText.replace(/\n/g, '<br>');
             } catch(e) { 
-                resBox.innerHTML = "❌ Service momentanément indisponible."; 
+                resBox.style.borderLeftColor = 'var(--error-color)';
+                resBox.innerHTML = "❌ Service SAV momentanément indisponible."; 
             } finally {
                 btn.innerHTML = `⚡ Traiter la réclamation`;
+                btn.disabled = false;
             }
         }
 
@@ -342,11 +376,11 @@
 
         async function askTwin() {
             const input = document.getElementById('twinInput');
-            const msg = input.value;
+            const msg = input.value.trim();
             const chatBox = document.getElementById('chatBox');
             if(!msg) return;
 
-            chatBox.innerHTML += `<div class="msg user">${msg}</div>`;
+            chatBox.innerHTML += `<div class="msg user">${escapeHtml(msg)}</div>`;
             const loaderId = "load-" + Date.now();
             chatBox.innerHTML += `<div id="${loaderId}" class="msg ia"><span class="spinner"></span> Formulation de la réponse...</div>`;
             input.value = ""; 
@@ -356,16 +390,28 @@
                 const req = await fetch('/api/ia-twin', { 
                     method: 'POST', 
                     headers: {'Content-Type': 'application/json'}, 
-                    body: JSON.stringify({question: msg}) 
+                    body: JSON.stringify({ question: msg }) 
                 });
                 const res = await req.json();
                 
-                document.getElementById(loaderId).remove();
-                chatBox.innerHTML += `<div class="msg ia"><strong>Pierre (IA) :</strong> ${res.reply}</div>`;
+                const replyText = (res.data && res.data.reply) ? res.data.reply : (res.message || "Aucune réponse disponible.");
+                
+                const loaderElem = document.getElementById(loaderId);
+                if(loaderElem) loaderElem.remove();
+                
+                chatBox.innerHTML += `<div class="msg ia"><strong>Pierre (IA) :</strong> ${escapeHtml(replyText)}</div>`;
                 chatBox.scrollTop = chatBox.scrollHeight;
             } catch(e) {
-                document.getElementById(loaderId).innerHTML = "❌ Avatar hors-ligne.";
+                const loaderElem = document.getElementById(loaderId);
+                if(loaderElem) loaderElem.innerHTML = "❌ Avatar momentanément hors-ligne.";
             }
+        }
+
+        // Helper anti-injection XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.innerText = text;
+            return div.innerHTML;
         }
 
         document.getElementById('twinInput').addEventListener('keypress', e => { 
