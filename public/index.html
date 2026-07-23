@@ -1,224 +1,322 @@
 <!DOCTYPE html>
-<html lang="fr" class="dark">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pierre Clain — Candidature & Control Tower IA</title>
-
-  <!-- Tailwind CSS & FontAwesome -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
-          colors: {
-            brand: { 50: '#f0f7ff', 500: '#0066ff', 600: '#0052cc', 900: '#0a192f' },
-            accent: '#00f2fe'
-          }
-        }
-      }
-    }
-  </script>
-
+  <title>Hub IA & MLOps - Pierre CLAIN</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body { background: #07090e; color: #f3f4f6; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
-    .glow-blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.25; pointer-events: none; z-index: 0; }
-    .glass-card { background: rgba(17, 24, 39, 0.65); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
-    .glass-card:hover { border-color: rgba(0, 242, 254, 0.3); box-shadow: 0 0 25px rgba(0, 102, 255, 0.2); }
-    .gradient-text { background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #00f2fe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .pulse-online { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); animation: pulse-green 2s infinite; }
-    @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); } 70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
-    .persona-btn.active { background: rgba(0, 242, 254, 0.15); border-color: rgba(0, 242, 254, 0.4); color: #00f2fe; }
+    :root {
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --danger: #ef4444;
+      --success: #10b981;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+
+    /* Sidebar / Navigation */
+    aside { width: 280px; background-color: #020617; border-right: 1px solid var(--border); padding: 2rem 1rem; display: flex; flex-direction: column; gap: 1rem; }
+    aside h1 { font-size: 1.2rem; color: var(--primary); margin-bottom: 2rem; text-align: center; }
+    
+    .tab-btn { background: transparent; color: var(--text-muted); border: none; padding: 1rem; text-align: left; border-radius: 8px; cursor: pointer; transition: 0.3s; font-size: 1rem; display: flex; align-items: center; gap: 12px; }
+    .tab-btn:hover { background: var(--bg-card); color: var(--text-main); }
+    .tab-btn.active { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
+
+    /* Contenu Principal */
+    main { flex: 1; padding: 2rem; overflow-y: auto; }
+    .tab-content { display: none; max-width: 900px; margin: 0 auto; animation: fadeIn 0.4s ease; }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Composants UI */
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; }
+    .card h2 { margin-bottom: 1rem; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+    
+    .input-group { margin-bottom: 1.2rem; }
+    .input-group label { display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
+    input, textarea { width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border); background: #0f172a; color: #fff; font-size: 1rem; }
+    
+    button.btn { background: var(--primary); color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; width: 100%; }
+    button.btn:hover { background: var(--primary-hover); }
+    button.btn-danger { background: transparent; color: var(--danger); border: 1px solid var(--danger); margin-top: 10px; }
+    button.btn-danger:hover { background: var(--danger); color: #fff; }
+
+    /* Chatbox Jumeau Numérique */
+    .chat-container { display: flex; flex-direction: column; gap: 1rem; max-height: 400px; overflow-y: auto; padding: 1rem; background: #020617; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem; }
+    .message { max-width: 80%; padding: 1rem; border-radius: 8px; line-height: 1.5; }
+    .msg-user { background: var(--primary); color: #fff; align-self: flex-end; border-bottom-right-radius: 0; }
+    .msg-twin { background: var(--bg-card); border: 1px solid var(--border); align-self: flex-start; border-bottom-left-radius: 0; }
+    
+    .mlops-badge { font-size: 0.75rem; background: rgba(239, 68, 68, 0.1); color: var(--danger); padding: 4px 8px; border-radius: 12px; border: 1px solid var(--danger); cursor: pointer; margin-top: 8px; display: inline-block; }
+
+    /* Loader */
+    .loader { display: none; text-align: center; color: var(--primary); margin: 1rem 0; font-style: italic; }
   </style>
 </head>
-<body class="min-h-screen relative flex flex-col justify-between antialiased">
+<body>
 
-  <div class="glow-blob w-[500px] h-[500px] bg-blue-600 -top-20 -left-20"></div>
-  <div class="glow-blob w-[400px] h-[400px] bg-cyan-500 top-1/2 -right-20"></div>
-  <div class="glow-blob w-[600px] h-[600px] bg-purple-600 -bottom-20 left-1/3"></div>
+  <aside>
+    <h1><i class="fa-solid fa-microchip"></i> Hub IA Orchestrateur</h1>
+    <button class="tab-btn active" onclick="openTab('tab-twin')"><i class="fa-solid fa-robot"></i> Jumeau Numérique</button>
+    <button class="tab-btn" onclick="openTab('tab-sav')"><i class="fa-solid fa-shield-halved"></i> Détection SAV / Alertes</button>
+    <button class="tab-btn" onclick="openTab('tab-pnl')"><i class="fa-solid fa-chart-pie"></i> Simulateur P&L</button>
+    <button class="tab-btn" onclick="openTab('tab-contact')"><i class="fa-solid fa-calendar-check"></i> Actions & Contact</button>
+  </aside>
 
-  <header class="sticky top-0 z-50 glass-card border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center font-extrabold text-xl shadow-lg shadow-cyan-500/30">P</div>
-        <div>
-          <h1 class="font-bold text-lg leading-none">Pierre Clain</h1>
-          <p class="text-xs text-slate-400 mt-1">Data Analyst x Manager Exploitation</p>
-        </div>
-      </div>
-      <div class="hidden md:flex items-center gap-3 px-4 py-2 rounded-full glass-card text-xs font-medium">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 pulse-online"></span>
-        <span class="text-slate-300">FastAPI & Control Tower : <strong class="text-emerald-400">Opérationnels</strong></span>
-      </div>
-    </div>
-  </header>
-
-  <main class="relative z-10 max-w-7xl mx-auto px-6 py-12 flex-1">
-    
-    <div class="text-center max-w-3xl mx-auto mb-10">
-      <span class="px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-blue-500/10 text-cyan-400 border border-cyan-500/20 inline-block mb-4">
-        <i class="fa-solid fa-bolt mr-2"></i>Candidature Augmentée & Control Tower IA
-      </span>
-      <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 gradient-text">Piloter l'Expérience & Accélérer la Data</h2>
-      <p class="text-slate-300 text-lg leading-relaxed">Découvrez comment mon double profil <strong>Manager Exploitation Decathlon</strong> et <strong>Data Analyst</strong> apporte une valeur immédiate à <strong>Sport Découverte</strong>.</p>
-    </div>
-
-    <!-- SÉLECTEUR DE PERSONA -->
-    <div class="max-w-3xl mx-auto mb-6">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-1.5 glass-card rounded-2xl border border-white/10">
-        <button onclick="setPersona('rh')" id="persona-btn-rh" class="persona-btn active flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-semibold border border-transparent text-slate-300 transition-all">
-          <i class="fa-solid fa-user-check text-base"></i> RH & Recrutement
-        </button>
-        <button onclick="setPersona('tech')" id="persona-btn-tech" class="persona-btn flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-semibold border border-transparent text-slate-300 transition-all">
-          <i class="fa-solid fa-code text-base"></i> Lead Data & Tech
-        </button>
-        <button onclick="setPersona('ops')" id="persona-btn-ops" class="persona-btn flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-semibold border border-transparent text-slate-300 transition-all">
-          <i class="fa-solid fa-chart-pie text-base"></i> Ops & Direction
-        </button>
-      </div>
-    </div>
-
-    <!-- BANNIÈRE PITCH -->
-    <div id="persona-banner" class="glass-card rounded-2xl p-6 mb-12 border-l-4 border-cyan-400 transition-all duration-500 max-w-3xl mx-auto">
-      <div class="flex items-start gap-4">
-        <div id="persona-icon" class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl shrink-0">
-          <i class="fa-solid fa-user-check"></i>
-        </div>
-        <div>
-          <h4 id="persona-title" class="font-bold text-base text-white mb-1">Focus : Leadership, Management & Culture d'Entreprise</h4>
-          <p id="persona-desc" class="text-sm text-slate-300 leading-relaxed">Ancien Manager d'Exploitation Decathlon, Pierre allie écoute client, gestion des équipes terrain et vision globale des opérations.</p>
-          <div id="persona-tags" class="flex flex-wrap gap-2 mt-3">
-            <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">Soft Skills</span>
-            <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">Management</span>
-            <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">Culture Decathlon</span>
+  <main>
+    <!-- ONGLET 1: JUMEAU NUMÉRIQUE & MLOps -->
+    <div id="tab-twin" class="tab-content active">
+      <div class="card">
+        <h2><i class="fa-solid fa-robot"></i> Jumeau Numérique - Pierre Clain</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Interrogez mon profil. Le modèle utilise une boucle MLOps pour s'améliorer via vos feedbacks.</p>
+        
+        <div class="chat-container" id="chat-box">
+          <div class="message msg-twin">
+            Bonjour ! Je suis le Jumeau Numérique de Pierre Clain. Posez-moi des questions sur mes compétences (Data, Management, SQL, Python...).
           </div>
         </div>
+
+        <div class="input-group" style="display: flex; gap: 10px;">
+          <input type="text" id="twin-input" placeholder="Ex: Quelle est ton expérience en Data Analysis ?">
+          <button class="btn" style="width: auto;" onclick="askTwin()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+        <div id="twin-loader" class="loader"><i class="fa-solid fa-spinner fa-spin"></i> Traitement ML en cours...</div>
       </div>
     </div>
 
-    <!-- MODULES IA -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-      <!-- SAV -->
-      <div class="glass-card rounded-3xl p-8">
-        <div class="flex items-center justify-between mb-6">
-          <h3 class="text-xl font-bold flex items-center gap-3"><i class="fa-solid fa-headset text-blue-400"></i> Moteur SAV Intelligents</h3>
+    <!-- ONGLET 2: SAV & ANALYSE DE SENTIMENT -->
+    <div id="tab-sav" class="tab-content">
+      <div class="card">
+        <h2><i class="fa-solid fa-shield-halved"></i> Moteur SAV & Analyse de Sentiment</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Simulez une requête client. L'IA détecte l'urgence (mots-clés critiques) et achemine la demande.</p>
+        
+        <div class="input-group">
+          <label>Email du client (simulation)</label>
+          <input type="email" id="sav-email" value="client@test.com">
         </div>
-        <form id="form-sav" class="space-y-4">
-          <div class="flex gap-2">
-            <input type="text" id="sav-input" placeholder="ex: Saut en parachute annulé..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm outline-none">
-            <button type="button" id="sav-mic-btn" onclick="toggleVoice('sav-input', 'sav-mic-btn')" class="bg-slate-800 px-4 rounded-xl border border-slate-700 text-cyan-400"><i class="fa-solid fa-microphone"></i></button>
+        <div class="input-group">
+          <label>Message du client</label>
+          <textarea id="sav-message" rows="4" placeholder="Tapez un message... Essayez d'inclure les mots 'arnaque' ou 'plainte' pour déclencher l'alerte critique."></textarea>
+        </div>
+        <button class="btn" onclick="testSAV()">Analyser le message</button>
+        <div id="sav-loader" class="loader"><i class="fa-solid fa-spinner fa-spin"></i> Analyse sémantique...</div>
+        
+        <div id="sav-result" style="margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none;"></div>
+      </div>
+    </div>
+
+    <!-- ONGLET 3: SIMULATEUR P&L -->
+    <div id="tab-pnl" class="tab-content">
+      <div class="card">
+        <h2><i class="fa-solid fa-chart-pie"></i> Simulateur Financier Partenaire</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Calcul du P&L simulé pour un partenaire Sport Découverte.</p>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="input-group">
+            <label>Prix de la prestation (€)</label>
+            <input type="number" id="pnl-price" value="150">
           </div>
-          <button type="submit" id="sav-btn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all">Analyser</button>
-        </form>
-        <div id="sav-result" class="hidden mt-6 p-4 rounded-xl bg-slate-900 border border-slate-800 text-sm">
-          <p id="sav-text" class="text-slate-300"></p>
-        </div>
-      </div>
-      <!-- TWIN -->
-      <div class="glass-card rounded-3xl p-8">
-        <div class="flex items-center justify-between mb-6">
-          <h3 class="text-xl font-bold flex items-center gap-3"><i class="fa-solid fa-user-gear text-purple-400"></i> Jumeau Numérique</h3>
-        </div>
-        <form id="form-twin" class="space-y-4">
-          <div class="flex gap-2">
-            <input type="text" id="twin-input" placeholder="ex: Parle-moi de ton P&L..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm outline-none">
-            <button type="button" id="twin-mic-btn" onclick="toggleVoice('twin-input', 'twin-mic-btn')" class="bg-slate-800 px-4 rounded-xl border border-slate-700 text-purple-400"><i class="fa-solid fa-microphone"></i></button>
+          <div class="input-group">
+            <label>Volume estimé</label>
+            <input type="number" id="pnl-vol" value="20">
           </div>
-          <button type="submit" id="twin-btn" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl transition-all">Interroger</button>
-        </form>
-        <div id="twin-result" class="hidden mt-6 p-4 rounded-xl bg-slate-900 border border-slate-800 text-sm">
-          <p id="twin-text" class="text-slate-300"></p>
+          <div class="input-group">
+            <label>Commission (%)</label>
+            <input type="number" id="pnl-com" value="15">
+          </div>
+          <div class="input-group">
+            <label>Frais fixes (€)</label>
+            <input type="number" id="pnl-costs" value="500">
+          </div>
         </div>
+        <button class="btn" onclick="simulatePNL()">Lancer la simulation</button>
+        <div id="pnl-loader" class="loader"><i class="fa-solid fa-spinner fa-spin"></i> Calcul en cours...</div>
+        
+        <div id="pnl-result" style="margin-top: 1.5rem; background: #020617; padding: 1rem; border-radius: 8px; font-family: monospace; display: none;"></div>
       </div>
     </div>
 
-    <!-- P&L SIMULATOR -->
-    <div class="glass-card rounded-3xl p-8 mb-12">
-      <h3 class="text-2xl font-bold mb-6 flex items-center gap-3"><i class="fa-solid fa-calculator text-cyan-400"></i> Simulateur Financier</h3>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <input type="number" id="pnl-price" value="120" oninput="calculatePNL()" class="bg-slate-900 border border-slate-700 p-2 rounded-xl text-sm outline-none">
-        <input type="number" id="pnl-volume" value="50" oninput="calculatePNL()" class="bg-slate-900 border border-slate-700 p-2 rounded-xl text-sm outline-none">
-        <input type="number" id="pnl-commission" value="18" oninput="calculatePNL()" class="bg-slate-900 border border-slate-700 p-2 rounded-xl text-sm outline-none">
-        <input type="number" id="pnl-fixed" value="1500" oninput="calculatePNL()" class="bg-slate-900 border border-slate-700 p-2 rounded-xl text-sm outline-none">
-      </div>
-      <div class="grid grid-cols-3 gap-4 text-center bg-slate-900/80 p-6 rounded-2xl border border-slate-800">
-        <div><p class="text-xs text-slate-400">CA Brut</p><div id="res-ca" class="text-xl font-bold">0 €</div></div>
-        <div><p class="text-xs text-slate-400">Commission</p><div id="res-com" class="text-xl font-bold text-cyan-400">0 €</div></div>
-        <div><p class="text-xs text-slate-400">Marge Nette</p><div id="res-marge" class="text-xl font-bold text-emerald-400">0 €</div></div>
-      </div>
-    </div>
+    <!-- ONGLET 4: ACTIONS & CONTACT -->
+    <div id="tab-contact" class="tab-content">
+      <div class="card">
+        <h2><i class="fa-solid fa-paper-plane"></i> Orchestration Automatisée</h2>
+        
+        <div class="input-group">
+          <label>Votre Email Pro</label>
+          <input type="email" id="contact-email" placeholder="recruteur@entreprise.com">
+        </div>
 
-    <!-- CONTROL TOWER -->
-    <div class="glass-card rounded-3xl p-8 mb-12">
-      <h3 class="text-2xl font-bold mb-6 flex items-center gap-3"><i class="fa-solid fa-chart-line text-purple-400"></i> Control Tower</h3>
-      <div class="w-full h-[500px] rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/90">
-        <iframe 
-          src="https://datastudio.google.com/embed/reporting/f78ef045-b308-4cca-8fdc-79372cd04087/page/Itd4F" 
-          width="100%" 
-          height="100%" 
-          frameborder="0" 
-          style="border:0" 
-          allowfullscreen 
-          sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
-        </iframe>
-      </div>
-    </div>
+        <button class="btn" style="margin-bottom: 1rem;" onclick="triggerAction('sendDossier')">
+          <i class="fa-solid fa-envelope"></i> Envoyer le Dossier de Candidature
+        </button>
+        
+        <div class="input-group" style="margin-top: 2rem;">
+          <label>Date et heure du rendez-vous (Optionnel)</label>
+          <input type="datetime-local" id="contact-date">
+        </div>
+        <button class="btn" style="background: var(--success);" onclick="triggerAction('bookMeeting')">
+          <i class="fa-solid fa-calendar-plus"></i> Réserver un échange (G-Calendar)
+        </button>
 
-    <!-- EMAIL FORM -->
-    <div class="glass-card rounded-3xl p-8 text-center max-w-xl mx-auto">
-      <h3 class="text-xl font-bold mb-4">Recevoir mon dossier complet</h3>
-      <form id="form-email" class="flex flex-col sm:flex-row gap-3">
-        <input type="email" id="email-input" required placeholder="nom@entreprise.com" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 outline-none">
-        <button type="submit" id="email-btn" class="bg-white text-slate-950 font-bold px-6 py-3 rounded-xl hover:bg-slate-200">Envoyer</button>
-      </form>
-      <div id="email-status" class="mt-4 text-xs"></div>
+        <div id="contact-result" style="margin-top: 1.5rem; color: var(--primary);"></div>
+      </div>
     </div>
   </main>
 
   <script>
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz42bwk7OZLD0y7U4b7J-7eKlC4ZXa1e6vaW_2A8t6iNfyzkLrdUQeZTTAqyRd1afrf/exec";
+    // ==========================================
+    // CONFIGURATION URL
+    // ==========================================
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz42bwk7OZLD0y7U4b7J-7eKlC4ZXa1e6vaW_2A8t6iNfyzkLrdUQeZTTAqyRd1afrf/exec"; // ⚠️ REMPLACE CECI PAR TON URL DE DEPLOIEMENT MACRO
 
-    const personas = {
-      rh: { title: "Focus : Leadership & Culture", desc: "Ancien Manager d'Exploitation Decathlon, Pierre allie écoute client et gestion des équipes.", icon: "fa-user-check", tags: ["Soft Skills", "Management"] },
-      tech: { title: "Focus : Stack Data, FastAPI & ML", desc: "Formé en Data Analysis, Pierre conçoit des API et intègre des modèles ML.", icon: "fa-code", tags: ["Python", "SQL", "MLOps"] },
-      ops: { title: "Focus : P&L & Performance", desc: "Expert du pilotage commercial : optimisation des marges et KPIs.", icon: "fa-chart-pie", tags: ["P&L", "KPIs"] }
-    };
+    let lastUserQuery = "";
+    let lastTwinReply = "";
 
-    function setPersona(type) {
-      document.querySelectorAll('.persona-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById(`persona-btn-${type}`).classList.add('active');
-      const p = personas[type];
-      document.getElementById('persona-title').innerText = p.title;
-      document.getElementById('persona-desc').innerText = p.desc;
-      document.getElementById('persona-icon').innerHTML = `<i class="fa-solid ${p.icon}"></i>`;
+    // Gestion des onglets
+    function openTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
     }
 
-    function calculatePNL() {
-      const price = parseFloat(document.getElementById('pnl-price').value) || 0;
-      const volume = parseFloat(document.getElementById('pnl-volume').value) || 0;
-      const com = parseFloat(document.getElementById('pnl-commission').value) || 0;
-      const fixed = parseFloat(document.getElementById('pnl-fixed').value) || 0;
-      const ca = price * volume;
-      const c = ca * (com / 100);
-      const marge = (ca - c) - fixed;
-      document.getElementById('res-ca').innerText = ca.toLocaleString('fr-FR') + ' €';
-      document.getElementById('res-com').innerText = c.toLocaleString('fr-FR') + ' €';
-      document.getElementById('res-marge').innerText = marge.toLocaleString('fr-FR') + ' €';
+    // Fonction d'appel générique vers Apps Script
+    async function callAppsScript(payload, loaderId) {
+      const loader = document.getElementById(loaderId);
+      if(loader) loader.style.display = "block";
+      
+      try {
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors', // Requis pour éviter les erreurs CORS de Google
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        // Note: Avec 'no-cors', on ne peut pas lire le JSON de retour. 
+        // L'action est exécutée en arrière-plan.
+        if(loader) loader.style.display = "none";
+        return { success: true, note: "Requête envoyée (no-cors)" };
+      } catch (error) {
+        if(loader) loader.style.display = "none";
+        console.error(error);
+        return { success: false };
+      }
     }
 
-    // Handlers basiques (Keep existing logic structure)
-    document.getElementById('form-email').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      document.getElementById('email-status').innerText = "Envoi en cours...";
-      // Ajoute ici ton appel fetch vers APPS_SCRIPT_URL
-    });
+    // 1. JUMEAU NUMÉRIQUE
+    function askTwin() {
+      const input = document.getElementById('twin-input');
+      const question = input.value.trim();
+      if(!question) return;
 
-    calculatePNL();
+      lastUserQuery = question;
+      
+      const chatBox = document.getElementById('chat-box');
+      chatBox.innerHTML += `<div class="message msg-user">${question}</div>`;
+      input.value = "";
+      
+      // Simulation visuelle de la réponse (Puisque Google 'no-cors' bloque la lecture directe)
+      setTimeout(() => {
+        let reply = "Je suis Pierre CLAIN, Manager d'Exploitation et Data Analyst.";
+        const qLower = question.toLowerCase();
+        if (qLower.includes("p&l") || qLower.includes("decathlon")) reply = "En tant que Responsable Exploitation chez Decathlon, j'ai géré le compte d'exploitation (P&L), la masse salariale et l'animation commerciale.";
+        else if (qLower.includes("data") || qLower.includes("sql")) reply = "Certifié Data Analyst chez DataBird, je maîtrise SQL, Python (Pandas/Scikit-Learn) et Power BI.";
+        
+        lastTwinReply = reply;
+
+        chatBox.innerHTML += `
+          <div class="message msg-twin">
+            ${reply}<br>
+            <span class="mlops-badge" onclick="retrainML()"><i class="fa-solid fa-thumbs-down"></i> Réponse erronée (Signaler pour Ré-entraînement)</span>
+          </div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 600);
+
+      // Appel réel au backend pour enregistrement
+      callAppsScript({ action: "askTwin", question: question, email: "visiteur@ui.com" }, "twin-loader");
+    }
+
+    // Fonction Feedback MLOps
+    function retrainML() {
+      alert("Feedback envoyé à la base de données. Le modèle sera ré-entraîné via Looker Studio / Sheets.");
+      callAppsScript({ action: "feedbackNegative", query: lastUserQuery, badReply: lastTwinReply, email: "visiteur@ui.com" }, "twin-loader");
+    }
+
+    // 2. SAV & ALERTES
+    function testSAV() {
+      const email = document.getElementById('sav-email').value;
+      const message = document.getElementById('sav-message').value;
+      const resBox = document.getElementById('sav-result');
+      
+      // Envoi au backend
+      callAppsScript({ action: "savAlert", message: message, email: email }, "sav-loader");
+
+      // Logique UI locale
+      const isCritical = ["avocat", "plainte", "danger", "arnaque"].some(w => message.toLowerCase().includes(w));
+      resBox.style.display = "block";
+      
+      if(isCritical) {
+        resBox.style.border = "1px solid var(--danger)";
+        resBox.innerHTML = `<h3 style="color:var(--danger)"><i class="fa-solid fa-triangle-exclamation"></i> Alerte Critique Déclenchée</h3>
+                            <p>Ticket classé en priorité absolue. Email d'escalade envoyé au manager (Clain.pierre@gmail.com).</p>`;
+      } else {
+        resBox.style.border = "1px solid var(--success)";
+        resBox.innerHTML = `<h3 style="color:var(--success)"><i class="fa-solid fa-check"></i> Requête Classique</h3>
+                            <p>Demande enregistrée. Priorité normale.</p>`;
+      }
+    }
+
+    // 3. SIMULATEUR P&L
+    function simulatePNL() {
+      const payload = {
+        action: "simulatePNL",
+        price: document.getElementById('pnl-price').value,
+        volume: document.getElementById('pnl-vol').value,
+        commissionRate: document.getElementById('pnl-com').value,
+        fixedCosts: document.getElementById('pnl-costs').value,
+        email: "partenaire@ui.com"
+      };
+
+      callAppsScript(payload, "pnl-loader");
+
+      // Calcul visuel local
+      const caBrut = payload.price * payload.volume;
+      const com = caBrut * (payload.commissionRate / 100);
+      const marge = caBrut - com - payload.fixedCosts;
+      
+      const resBox = document.getElementById('pnl-result');
+      resBox.style.display = "block";
+      resBox.innerHTML = `
+        <div style="color: var(--text-muted)">CA Brut généré : <strong style="color:#fff">${caBrut} €</strong></div>
+        <div style="color: var(--danger)">Commission Sport Découverte : <strong>-${com} €</strong></div>
+        <div style="color: ${marge > 0 ? 'var(--success)' : 'var(--danger)'}">Marge Nette Partenaire : <strong>${marge} €</strong></div>
+      `;
+    }
+
+    // 4. ACTIONS
+    function triggerAction(actionType) {
+      const email = document.getElementById('contact-email').value;
+      if(!email) { alert("Veuillez saisir un email."); return; }
+
+      const dateStr = document.getElementById('contact-date').value;
+      const resBox = document.getElementById('contact-result');
+
+      callAppsScript({ action: actionType, email: email, dateTimeStr: dateStr }, null);
+      
+      if(actionType === 'sendDossier') {
+        resBox.innerHTML = `<i class="fa-solid fa-check"></i> Requête envoyée ! L'orchestrateur va générer l'email HTML de candidature.`;
+      } else {
+        resBox.innerHTML = `<i class="fa-solid fa-check"></i> Requête envoyée ! L'orchestrateur va créer l'invitation Google Calendar.`;
+      }
+    }
   </script>
 </body>
 </html>
