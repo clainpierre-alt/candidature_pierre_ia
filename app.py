@@ -59,7 +59,7 @@ def predict_intent(request: QueryRequest):
     confidence = float(max(probabilities))
 
     # Récupération de la réponse si la confiance est jugée suffisante
-    if confidence < 0.35:
+    if confidence < 0.22:
         reply = "Bonjour ! J'ai bien pris note de votre message. Un conseiller dédié va analyser votre demande spécifique et vous répondre sous 4 heures."
     else:
         reply = RESPONSES_DATABASE.get(predicted_intent, "Bonjour, un conseiller étudie votre demande.")
