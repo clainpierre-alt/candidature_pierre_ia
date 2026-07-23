@@ -1,12 +1,14 @@
 {
-  "name": "candidature-pierre-gas",
+  "name": "candidature-pierre-ia",
   "version": "1.0.0",
-  "description": "Dashboard Candidature connecté à Google Apps Script",
+  "description": "Serveur hybride Node.js + Python ML",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "build": "pip install -r requirements.txt && npm install && python train_model.py",
+    "start": "concurrently \"uvicorn app:app --host 127.0.0.1 --port 8000\" \"node server.js\""
   },
   "dependencies": {
+    "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
