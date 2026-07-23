@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "Serveur hybride Node.js + Python ML",
   "main": "server.js",
-"scripts": {
-  "start": "node server.js",
-  "build": "pip install -r requirements.txt && python train_model.py"
-}
+  "scripts": {
+    "build": "pip install -r requirements.txt && python train_model.py && yarn install",
+    "start": "concurrently \"uvicorn app:app --host 127.0.0.1 --port 8000\" \"node server.js\""
   },
   "dependencies": {
     "concurrently": "^8.2.2",
