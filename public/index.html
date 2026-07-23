@@ -3,132 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pierre Clain - Dashboard Stratégique & IA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&family=Azeret+Mono&display=swap" rel="stylesheet">
+    <title>Pierre Clain - Portfolio Interactif & IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; }
+        :root {
+            --bg-main: #090d16;
+            --card-bg: rgba(15, 23, 42, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-cyan: #06b6d4;
+            --accent-purple: #a855f7;
+            --accent-blue: #3b82f6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body { 
-            background: #0f172a; 
-            color: #94a3b8; 
-            font-family: 'Urbanist', sans-serif; 
+            background: var(--bg-main);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.12) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-secondary); 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            gap: 30px; 
+            gap: 24px; 
             padding: 40px 20px; 
-            margin: 0; 
+            min-height: 100vh;
         }
+
+        .container {
+            max-width: 960px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
         .card { 
-            background: #020617; 
-            border: 1px solid rgba(6, 182, 212, 0.2); 
-            border-radius: 12px; 
-            max-width: 900px; 
-            width: 100%; 
-            padding: 30px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            background: var(--card-bg); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color); 
+            border-radius: 16px; 
+            padding: 32px; 
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            transition: border-color 0.3s ease;
         }
-        h1, h2 { color: #f8fafc; margin-top: 0; }
-        .accent-cyan { color: #06b6d4; }
-        .accent-purple { color: #c084fc; }
-        .accent-blue { color: #3b82f6; }
+
+        .card:hover {
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        .header-card {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.7) 100%);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        h1 { 
+            color: var(--text-primary); 
+            font-size: 2.5rem; 
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 8px;
+        }
+
+        h2 { 
+            color: var(--text-primary); 
+            font-size: 1.25rem; 
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-cyan { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
+        .badge-purple { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border: 1px solid var(--accent-purple); }
+        .badge-blue { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); border: 1px solid var(--accent-blue); }
+
+        .input-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
         input, textarea { 
             width: 100%; 
-            padding: 12px; 
-            border-radius: 6px; 
-            background: #0f172a; 
-            color: white; 
-            border: 1px solid #334155; 
-            margin-bottom: 10px; 
+            padding: 14px 16px; 
+            border-radius: 10px; 
+            background: rgba(15, 23, 42, 0.8); 
+            color: var(--text-primary); 
+            border: 1px solid var(--border-color); 
             font-family: inherit; 
+            font-size: 0.95rem;
+            transition: all 0.2s;
         }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
         button { 
-            padding: 12px 24px; 
+            padding: 14px 24px; 
             color: white; 
             border: none; 
-            border-radius: 6px; 
+            border-radius: 10px; 
             cursor: pointer; 
-            font-weight: bold; 
-            transition: opacity 0.2s;
+            font-weight: 600; 
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
         }
-        button:hover { opacity: 0.9; }
-        .btn-cyan { background: #06b6d4; } 
-        .btn-purple { background: #c084fc; } 
-        .btn-blue { background: #3b82f6; }
+
+        button:hover { transform: translateY(-1px); opacity: 0.95; }
+        button:active { transform: translateY(0); }
+
+        .btn-cyan { background: linear-gradient(135deg, #06b6d4, #0891b2); } 
+        .btn-purple { background: linear-gradient(135deg, #a855f7, #7e22ce); } 
+        .btn-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+
+        .chip-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chip:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
         .response-box { 
-            background: #1e293b; 
-            padding: 15px; 
-            border-radius: 6px; 
-            margin-top: 15px; 
+            background: rgba(30, 41, 59, 0.5); 
+            border-radius: 10px; 
+            padding: 16px; 
+            margin-top: 16px; 
             display: none; 
-            color: #f8fafc;
+            color: var(--text-primary);
+            border-left: 4px solid transparent;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
+
         .chat-container { 
-            height: 250px; 
+            height: 320px; 
             overflow-y: auto; 
-            background: #1e293b; 
-            padding: 15px; 
-            border-radius: 6px; 
-            margin-bottom: 15px; 
+            background: rgba(15, 23, 42, 0.6); 
+            border: 1px solid var(--border-color);
+            padding: 20px; 
+            border-radius: 12px; 
+            margin-top: 16px; 
             display: flex; 
             flex-direction: column; 
-            gap: 10px; 
+            gap: 12px; 
         }
-        .msg { padding: 10px 15px; border-radius: 12px; max-width: 80%; }
-        .msg.ia { background: #0f172a; align-self: flex-start; border-left: 3px solid #3b82f6; color: #f8fafc; }
-        .msg.user { background: #3b82f6; align-self: flex-end; color: white; }
+
+        .msg { padding: 12px 18px; border-radius: 14px; max-width: 80%; font-size: 0.95rem; line-height: 1.5; }
+        .msg.ia { 
+            background: rgba(30, 41, 59, 0.8); 
+            align-self: flex-start; 
+            border-left: 3px solid var(--accent-blue); 
+            color: var(--text-primary); 
+        }
+        .msg.user { 
+            background: var(--accent-blue); 
+            align-self: flex-end; 
+            color: white; 
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <!-- ENTÊTE -->
-    <div class="card" style="text-align: center;">
-        <h1 style="font-size: 42px; margin-bottom: 10px;">PIERRE <span class="accent-cyan">CLAIN</span></h1>
-        <p style="font-size: 18px; margin: 0;">Candidature Responsable Partenariats & Commerce - <strong>Sport Découverte</strong></p>
-    </div>
-
-    <!-- MODULE 1 : EMAIL AUTOMATION -->
-    <div class="card" style="border-color: #06b6d4;">
-        <h2><span class="accent-cyan">1. Workflow Email</span> (Google Apps Script)</h2>
-        <p>Testez l'envoi d'un mail d'automatisation exécuté via Google Apps Script :</p>
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <input type="email" id="emailInput" placeholder="votre.email@domaine.com" style="flex: 1; min-width: 200px;">
-            <button class="btn-cyan" onclick="sendMail()">Envoyer le mail</button>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="card header-card">
+            <h1>PIERRE <span style="color: var(--accent-cyan);">CLAIN</span></h1>
+            <p style="color: var(--text-primary); font-weight: 600;">Candidature Responsable Partenariats & Commerce — <strong>Sport Découverte</strong></p>
+            <p style="font-size: 0.85rem; margin-top: 8px; color: var(--text-secondary);">Stack : Node.js • Google Apps Script Engine • Architecture Event-Driven</p>
         </div>
-        <div id="resMail" class="response-box" style="border-left: 4px solid #06b6d4;"></div>
-    </div>
 
-    <!-- MODULE 2 : ASSISTANT SAV -->
-    <div class="card" style="border-color: #c084fc;">
-        <h2><span class="accent-purple">2. Assistant SAV</span> (Règles automatisées)</h2>
-        <p>Simulation du traitement automatique d'une réclamation client :</p>
-        <textarea id="savInput" rows="3" placeholder="Ex: Mon vol en montgolfière a été annulé à cause de la météo, je veux un remboursement."></textarea>
-        <button class="btn-purple" onclick="askSAV()">Générer une réponse</button>
-        <div id="resSAV" class="response-box" style="border-left: 4px solid #c084fc; font-family: 'Azeret Mono', monospace;"></div>
-    </div>
-
-    <!-- MODULE 3 : JUMEAU NUMÉRIQUE -->
-    <div class="card" style="border-color: #3b82f6;">
-        <h2><span class="accent-blue">3. Jumeau Numérique</span> (Avatar Pierre Clain)</h2>
-        <p>Posez une question sur mon parcours, mes compétences Tech ou Retail :</p>
-        <div class="chat-container" id="chatBox">
-            <div class="msg ia"><strong class="accent-blue">Pierre (IA) :</strong> Bonjour ! Posez-moi une question sur mes compétences ou mes expériences.</div>
+        <!-- MODULE 1 : WORKFLOW EMAIL -->
+        <div class="card">
+            <h2><span class="badge badge-cyan">Workflow</span> Automatisation Emailing</h2>
+            <p>Déclenchez un workflow de transmission automatique de plan d'action de partenariat :</p>
+            <div class="input-group">
+                <input type="email" id="emailInput" placeholder="Saisissez votre email professionnel...">
+                <button class="btn-cyan" id="btnMail" onclick="sendMail()">🚀 Exécuter</button>
+            </div>
+            <div id="resMail" class="response-box" style="border-left-color: var(--accent-cyan);"></div>
         </div>
-        <div style="display: flex; gap: 10px;">
-            <input type="text" id="twinInput" placeholder="Ex: Quelle est ton expérience dans le Retail ?">
-            <button class="btn-blue" onclick="askTwin()">Envoyer</button>
+
+        <!-- MODULE 2 : ASSISTANT SAV -->
+        <div class="card">
+            <h2><span class="badge badge-purple">Moteur SAV</span> Résolution Automatisée</h2>
+            <p>Testez le moteur d'orientation des litiges partenaires & clients :</p>
+            <textarea id="savInput" rows="2" placeholder="Ex: Mon activité saut en parachute a été annulée à cause de la météo..."></textarea>
+            
+            <div class="chip-container">
+                <span class="chip" onclick="setSAV('Remboursement suite météo défavorable')">🌧️ Annulation météo</span>
+                <span class="chip" onclick="setSAV('Je souhaite modifier la date de ma réservation')">📅 Report de date</span>
+                <span class="chip" onclick="setSAV('Partenaire injoignable pour valider mon bon')">📞 Partenaire injoignable</span>
+            </div>
+
+            <div style="margin-top: 12px;">
+                <button class="btn-purple" id="btnSAV" onclick="askSAV()">⚡ Traiter la réclamation</button>
+            </div>
+            <div id="resSAV" class="response-box" style="border-left-color: var(--accent-purple); font-family: 'JetBrains Mono', monospace;"></div>
+        </div>
+
+        <!-- MODULE 3 : JUMEAU NUMÉRIQUE -->
+        <div class="card">
+            <h2><span class="badge badge-blue">IA Twin</span> Jumeau Numérique Interactif</h2>
+            <p>Interrogez mon avatar entraîné sur mon parcours, mes métriques P&L et mes projets data :</p>
+            
+            <div class="chip-container">
+                <span class="chip" onclick="askTwinSuggested('Quel est ton bilan managérial et P&L ?')">📊 P&L & Management</span>
+                <span class="chip" onclick="askTwinSuggested('Quelles sont tes compétences Data et Python ?')">🛠️ Stack Tech & Data</span>
+                <span class="chip" onclick="askTwinSuggested('Pourquoi le poste chez Sport Découverte ?')">🎯 Vision Sport Découverte</span>
+            </div>
+
+            <div class="chat-container" id="chatBox">
+                <div class="msg ia"><strong>Pierre (IA) :</strong> Bonjour ! Posez-moi vos questions directes sur mes réalisations ou ma vision du poste.</div>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="twinInput" placeholder="Posez une question à l'avatar...">
+                <button class="btn-blue" id="btnTwin" onclick="askTwin()">Envoyer</button>
+            </div>
         </div>
     </div>
 
-    <!-- SCRIPTS JAVASCRIPT -->
     <script>
-        // 1. Fonction Workflow Email
+        // --- 1. EMAIL WORKFLOW ---
         async function sendMail() {
             const email = document.getElementById('emailInput').value;
             const resBox = document.getElementById('resMail');
+            const btn = document.getElementById('btnMail');
             if(!email) return;
             
+            btn.innerHTML = `<span class="spinner"></span> Traitement...`;
             resBox.style.display = 'block'; 
-            resBox.innerHTML = "⚡ Exécution du script Google en cours...";
+            resBox.innerHTML = "⚡ Connexion à l'Apps Script Gmail Engine...";
             
             try {
                 const req = await fetch('/api/send-email', { 
@@ -139,18 +298,26 @@
                 const res = await req.json();
                 resBox.innerHTML = res.message || res.error;
             } catch(e) { 
-                resBox.innerHTML = "❌ Erreur de connexion avec le serveur."; 
+                resBox.innerHTML = "❌ Erreur de liaison serveur."; 
+            } finally {
+                btn.innerHTML = `🚀 Exécuter`;
             }
         }
 
-        // 2. Fonction Assistant SAV
+        // --- 2. SAV ENGINE ---
+        function setSAV(text) {
+            document.getElementById('savInput').value = text;
+        }
+
         async function askSAV() {
             const msg = document.getElementById('savInput').value;
             const resBox = document.getElementById('resSAV');
+            const btn = document.getElementById('btnSAV');
             if(!msg) return;
             
+            btn.innerHTML = `<span class="spinner"></span> Analyse...`;
             resBox.style.display = 'block'; 
-            resBox.innerHTML = "⏳ Analyse de la requête...";
+            resBox.innerHTML = "🔍 Analyse sémantique des règles métier...";
             
             try {
                 const req = await fetch('/api/ia-sav', { 
@@ -159,23 +326,29 @@
                     body: JSON.stringify({message: msg}) 
                 });
                 const res = await req.json();
-                resBox.innerHTML = res.reply ? res.reply.replace(/\n/g, '<br>') : "Aucune réponse reçue.";
+                resBox.innerHTML = res.reply ? res.reply.replace(/\n/g, '<br>') : "Réponse vide.";
             } catch(e) { 
-                resBox.innerHTML = "❌ Erreur de connexion."; 
+                resBox.innerHTML = "❌ Service momentanément indisponible."; 
+            } finally {
+                btn.innerHTML = `⚡ Traiter la réclamation`;
             }
         }
 
-        // 3. Fonction Jumeau Numérique
+        // --- 3. JUMEAU NUMÉRIQUE ---
+        function askTwinSuggested(question) {
+            document.getElementById('twinInput').value = question;
+            askTwin();
+        }
+
         async function askTwin() {
             const input = document.getElementById('twinInput');
             const msg = input.value;
             const chatBox = document.getElementById('chatBox');
             if(!msg) return;
 
-            // Affichage du message de l'utilisateur
             chatBox.innerHTML += `<div class="msg user">${msg}</div>`;
             const loaderId = "load-" + Date.now();
-            chatBox.innerHTML += `<div id="${loaderId}" class="msg ia" style="color: #94a3b8;">Réponse en cours...</div>`;
+            chatBox.innerHTML += `<div id="${loaderId}" class="msg ia"><span class="spinner"></span> Formulation de la réponse...</div>`;
             input.value = ""; 
             chatBox.scrollTop = chatBox.scrollHeight;
 
@@ -188,14 +361,13 @@
                 const res = await req.json();
                 
                 document.getElementById(loaderId).remove();
-                chatBox.innerHTML += `<div class="msg ia"><strong class="accent-blue">Pierre (IA) :</strong> ${res.reply}</div>`;
+                chatBox.innerHTML += `<div class="msg ia"><strong>Pierre (IA) :</strong> ${res.reply}</div>`;
                 chatBox.scrollTop = chatBox.scrollHeight;
             } catch(e) {
-                document.getElementById(loaderId).innerHTML = "❌ Avatar momentanément indisponible.";
+                document.getElementById(loaderId).innerHTML = "❌ Avatar hors-ligne.";
             }
         }
 
-        // Touche Entrée pour envoyer dans le chat du Jumeau
         document.getElementById('twinInput').addEventListener('keypress', e => { 
             if(e.key === 'Enter') askTwin(); 
         });
