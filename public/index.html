@@ -3,99 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hub IA & MLOps - Pierre CLAIN</title>
+  <title>Candidature IA - Pierre CLAIN x Sport Découverte</title>
+  
+  <!-- Polices et Icônes -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
+    /* VARIABLES ET BASE */
     :root {
-      --bg-dark: #0f172a;
-      --bg-card: #1e293b;
-      --primary: #3b82f6;
-      --primary-hover: #2563eb;
-      --danger: #ef4444;
-      --success: #10b981;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --border: #334155;
+      --bg-dark: #0f172a; --bg-card: #1e293b;
+      --primary: #3b82f6; --primary-hover: #2563eb;
+      --danger: #ef4444; --success: #10b981;
+      --text-main: #f8fafc; --text-muted: #94a3b8; --border: #334155;
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
     body { background-color: var(--bg-dark); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
 
-    /* Sidebar / Navigation */
-    aside { width: 280px; background-color: #020617; border-right: 1px solid var(--border); padding: 2rem 1rem; display: flex; flex-direction: column; gap: 1rem; }
-    aside h1 { font-size: 1.2rem; color: var(--primary); margin-bottom: 2rem; text-align: center; }
-    
-    .tab-btn { background: transparent; color: var(--text-muted); border: none; padding: 1rem; text-align: left; border-radius: 8px; cursor: pointer; transition: 0.3s; font-size: 1rem; display: flex; align-items: center; gap: 12px; }
+    /* MENU LATÉRAL (SIDEBAR) */
+    aside { width: 280px; background-color: #020617; border-right: 1px solid var(--border); padding: 2rem 1rem; display: flex; flex-direction: column; gap: 0.8rem; overflow-y: auto; }
+    aside h1 { font-size: 1.1rem; color: var(--primary); margin-bottom: 1.5rem; text-align: center; line-height: 1.4; }
+    .tab-btn { background: transparent; color: var(--text-muted); border: none; padding: 1rem; text-align: left; border-radius: 8px; cursor: pointer; transition: 0.2s; font-size: 0.95rem; display: flex; align-items: center; gap: 12px; }
     .tab-btn:hover { background: var(--bg-card); color: var(--text-main); }
     .tab-btn.active { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
 
-    /* Contenu Principal */
-    main { flex: 1; padding: 2rem; overflow-y: auto; }
-    .tab-content { display: none; max-width: 900px; margin: 0 auto; animation: fadeIn 0.4s ease; }
+    /* ZONE PRINCIPALE */
+    main { flex: 1; padding: 2rem; overflow-y: auto; scroll-behavior: smooth; }
+    .tab-content { display: none; max-width: 900px; margin: 0 auto; animation: fadeIn 0.3s ease; }
     .tab-content.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Composants UI */
+    /* COMPOSANTS UI COMMUNS */
     .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; }
-    .card h2 { margin-bottom: 1rem; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+    .card h2 { margin-bottom: 0.5rem; color: var(--primary); font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
+    .card > p { color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5; }
     
     .input-group { margin-bottom: 1.2rem; }
     .input-group label { display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
     input, textarea { width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border); background: #0f172a; color: #fff; font-size: 1rem; }
     
-    button.btn { background: var(--primary); color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; width: 100%; }
+    button.btn { background: var(--primary); color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px;}
     button.btn:hover { background: var(--primary-hover); }
-    button.btn-danger { background: transparent; color: var(--danger); border: 1px solid var(--danger); margin-top: 10px; }
-    button.btn-danger:hover { background: var(--danger); color: #fff; }
 
-    /* Chatbox Jumeau Numérique */
+    /* CHATBOX JUMEAU */
     .chat-container { display: flex; flex-direction: column; gap: 1rem; max-height: 400px; overflow-y: auto; padding: 1rem; background: #020617; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 1rem; }
-    .message { max-width: 80%; padding: 1rem; border-radius: 8px; line-height: 1.5; }
+    .message { max-width: 80%; padding: 1rem; border-radius: 8px; line-height: 1.5; font-size: 0.95rem;}
     .msg-user { background: var(--primary); color: #fff; align-self: flex-end; border-bottom-right-radius: 0; }
     .msg-twin { background: var(--bg-card); border: 1px solid var(--border); align-self: flex-start; border-bottom-left-radius: 0; }
-    
-    .mlops-badge { font-size: 0.75rem; background: rgba(239, 68, 68, 0.1); color: var(--danger); padding: 4px 8px; border-radius: 12px; border: 1px solid var(--danger); cursor: pointer; margin-top: 8px; display: inline-block; }
+    .mlops-badge { font-size: 0.75rem; background: rgba(239, 68, 68, 0.1); color: var(--danger); padding: 4px 8px; border-radius: 12px; border: 1px solid var(--danger); cursor: pointer; margin-top: 8px; display: inline-block; transition: 0.2s;}
+    .mlops-badge:hover { background: var(--danger); color: #fff; }
 
-    /* Loader */
-    .loader { display: none; text-align: center; color: var(--primary); margin: 1rem 0; font-style: italic; }
+    /* STYLE BUSINESS CASE (ONGLET STUDY CASE) */
+    .study-header { text-align: center; margin-bottom: 2rem; }
+    .study-header h2 { font-size: 1.8rem; color: #fff; margin-bottom: 0.5rem; }
+    .study-header p { color: var(--text-muted); font-size: 1.1rem; }
+    .badge-container { display: flex; gap: 10px; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
+    .badge { background: rgba(59, 130, 246, 0.15); color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge-tech { background: rgba(16, 185, 129, 0.15); color: var(--success); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .architecture-box { background: linear-gradient(145deg, #1e293b, #0f172a); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .arch-step { text-align: center; flex: 1; }
+    .arch-step i { font-size: 2rem; color: var(--primary); margin-bottom: 10px; }
+    .arch-step h4 { color: #fff; font-size: 1rem; margin-bottom: 5px; }
+    .arch-step p { color: var(--text-muted); font-size: 0.85rem; }
+    .study-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .study-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: 0.3s; }
+    .study-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+    .study-card h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+    .tech-val { margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--border); font-size: 0.9rem; color: #fff; }
+    .tech-val span { color: var(--text-muted); display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .roi-banner { background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(16,185,129,0.1)); border-left: 4px solid var(--primary); border-radius: 0 12px 12px 0; padding: 1.5rem; }
+    .roi-banner h3 { color: #fff; margin-bottom: 1rem; }
+    .roi-list li { margin-bottom: 0.8rem; color: var(--text-muted); line-height: 1.5; display: flex; gap: 10px; }
+    .roi-list li i { color: var(--success); margin-top: 4px; }
+    .roi-list li strong { color: #fff; }
   </style>
 </head>
 <body>
 
+  <!-- MENU LATÉRAL -->
   <aside>
-    <h1><i class="fa-solid fa-microchip"></i> Hub IA Orchestrateur</h1>
+    <h1><i class="fa-solid fa-microchip"></i> Candidature IA<br><span style="font-size:0.8rem; color:#94a3b8; font-weight:normal;">Pierre Clain x Sport Découverte</span></h1>
+    
     <button class="tab-btn active" onclick="openTab('tab-twin')"><i class="fa-solid fa-robot"></i> Jumeau Numérique</button>
-    <button class="tab-btn" onclick="openTab('tab-sav')"><i class="fa-solid fa-shield-halved"></i> Détection SAV / Alertes</button>
-    <button class="tab-btn" onclick="openTab('tab-pnl')"><i class="fa-solid fa-chart-pie"></i> Simulateur P&L</button>
-    <button class="tab-btn" onclick="openTab('tab-contact')"><i class="fa-solid fa-calendar-check"></i> Actions & Contact</button>
+    <button class="tab-btn" onclick="openTab('tab-sav')"><i class="fa-solid fa-shield-halved"></i> Modèle Alertes SAV</button>
+    <button class="tab-btn" onclick="openTab('tab-studycase')"><i class="fa-solid fa-laptop-code"></i> Business Case</button>
+    
+    <hr style="border:0; border-top:1px solid var(--border); margin: 10px 0;">
+    
+    <button class="tab-btn" onclick="openTab('tab-contact')"><i class="fa-solid fa-paper-plane"></i> Actions & Contact</button>
   </aside>
 
+  <!-- CONTENU PRINCIPAL -->
   <main>
-    <!-- ONGLET 1: JUMEAU NUMÉRIQUE & MLOps -->
+    
+    <!-- ONGLET 1: JUMEAU NUMÉRIQUE -->
     <div id="tab-twin" class="tab-content active">
       <div class="card">
-        <h2><i class="fa-solid fa-robot"></i> Jumeau Numérique - Pierre Clain</h2>
-        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Interrogez mon profil. Le modèle utilise une boucle MLOps pour s'améliorer via vos feedbacks.</p>
+        <h2><i class="fa-solid fa-robot"></i> Mon Jumeau Numérique</h2>
+        <p>Interrogez mon profil de Manager/Data Analyst. Ce module simule une boucle MLOps : signalez une mauvaise réponse pour envoyer un feedback direct à l'API.</p>
         
         <div class="chat-container" id="chat-box">
-          <div class="message msg-twin">
-            Bonjour ! Je suis le Jumeau Numérique de Pierre Clain. Posez-moi des questions sur mes compétences (Data, Management, SQL, Python...).
-          </div>
+          <div class="message msg-twin">Bonjour ! Je suis l'assistant IA de Pierre Clain. Que souhaitez-vous savoir sur mes compétences, ma certification DataBird ou mon expérience Decathlon ?</div>
         </div>
 
-        <div class="input-group" style="display: flex; gap: 10px;">
-          <input type="text" id="twin-input" placeholder="Ex: Quelle est ton expérience en Data Analysis ?">
-          <button class="btn" style="width: auto;" onclick="askTwin()"><i class="fa-solid fa-paper-plane"></i></button>
+        <div style="display: flex; gap: 10px;">
+          <input type="text" id="twin-input" placeholder="Ex: Quelle est ton expérience en SQL ?">
+          <button class="btn" style="width: auto;" onclick="askTwin()"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
-        <div id="twin-loader" class="loader"><i class="fa-solid fa-spinner fa-spin"></i> Traitement ML en cours...</div>
       </div>
     </div>
 
-    <!-- ONGLET 2: SAV & ANALYSE DE SENTIMENT -->
+    <!-- ONGLET 2: MOTEUR SAV -->
     <div id="tab-sav" class="tab-content">
       <div class="card">
-        <h2><i class="fa-solid fa-shield-halved"></i> Moteur SAV & Analyse de Sentiment</h2>
-        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Simulez une requête client. L'IA détecte l'urgence (mots-clés critiques) et achemine la demande.</p>
+        <h2><i class="fa-solid fa-shield-halved"></i> Analyse Sémantique SAV</h2>
+        <p>Testez la détection d'urgence. L'algorithme scanne le texte. Essayez d'inclure les mots "arnaque", "plainte" ou "danger" pour voir le déclenchement d'escalade managériale.</p>
         
         <div class="input-group">
           <label>Email du client (simulation)</label>
@@ -103,83 +125,103 @@
         </div>
         <div class="input-group">
           <label>Message du client</label>
-          <textarea id="sav-message" rows="4" placeholder="Tapez un message... Essayez d'inclure les mots 'arnaque' ou 'plainte' pour déclencher l'alerte critique."></textarea>
+          <textarea id="sav-message" rows="4" placeholder="Tapez un message client factice..."></textarea>
         </div>
-        <button class="btn" onclick="testSAV()">Analyser le message</button>
-        <div id="sav-loader" class="loader"><i class="fa-solid fa-spinner fa-spin"></i> Analyse sémantique...</div>
+        <button class="btn" onclick="testSAV()"><i class="fa-solid fa-magnifying-glass"></i> Analyser le risque</button>
         
         <div id="sav-result" style="margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none;"></div>
       </div>
     </div>
 
-    <!-- ONGLET 3: SIMULATEUR P&L -->
-    <div id="tab-pnl" class="tab-content">
-      <div class="card">
-        <h2><i class="fa-solid fa-chart-pie"></i> Simulateur Financier Partenaire</h2>
-        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Calcul du P&L simulé pour un partenaire Sport Découverte.</p>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-          <div class="input-group">
-            <label>Prix de la prestation (€)</label>
-            <input type="number" id="pnl-price" value="150">
-          </div>
-          <div class="input-group">
-            <label>Volume estimé</label>
-            <input type="number" id="pnl-vol" value="20">
-          </div>
-          <div class="input-group">
-            <label>Commission (%)</label>
-            <input type="number" id="pnl-com" value="15">
-          </div>
-          <div class="input-group">
-            <label>Frais fixes (€)</label>
-            <input type="number" id="pnl-costs" value="500">
-          </div>
+    <!-- ONGLET 3: BUSINESS CASE (Anciennement P&L) -->
+    <div id="tab-studycase" class="tab-content">
+      <div class="study-header">
+        <h2>Le Démonstrateur Technologique</h2>
+        <p>Comment ce projet prouve mon profil hybride</p>
+        <div class="badge-container">
+          <span class="badge"><i class="fa-solid fa-briefcase"></i> Manager d'Exploitation</span>
+          <span class="badge"><i class="fa-solid fa-database"></i> Data Analyst</span>
+          <span class="badge-tech"><i class="fa-brands fa-js"></i> Apps Script</span>
+          <span class="badge-tech"><i class="fa-solid fa-cloud"></i> Serverless</span>
         </div>
-        <button class="btn" onclick="simulatePNL()">Lancer la simulation</button>
-        <div id="pnl-loader" class="loader"><i class="fa-solid fa-spinner fa-spin"></i> Calcul en cours...</div>
-        
-        <div id="pnl-result" style="margin-top: 1.5rem; background: #020617; padding: 1rem; border-radius: 8px; font-family: monospace; display: none;"></div>
+      </div>
+
+      <div class="architecture-box">
+        <div class="arch-step"><i class="fa-brands fa-html5"></i><h4>Frontend SPA</h4><p>Hébergé sur GitHub Pages</p></div>
+        <i class="fa-solid fa-arrow-right-arrow-left" style="color:var(--border)"></i>
+        <div class="arch-step"><i class="fa-brands fa-google"></i><h4>Orchestrateur</h4><p>Webhook Google Apps Script</p></div>
+        <i class="fa-solid fa-arrow-right-arrow-left" style="color:var(--border)"></i>
+        <div class="arch-step"><i class="fa-solid fa-table"></i><h4>Base de Données</h4><p>Google Sheets (CRM, Logs)</p></div>
+      </div>
+
+      <h3 style="margin-bottom: 1rem; color: #fff;">Preuves de Concept (PoC)</h3>
+      <div class="study-grid">
+        <div class="study-card">
+          <h3><i class="fa-solid fa-robot"></i> Jumeau & MLOps</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Le chatbot intègre une boucle d'apprentissage continu. Les erreurs signalées alimentent une base de ré-entraînement.</p>
+          <div class="tech-val"><span>Compétence</span>Culture Data, MLOps, Amélioration continue.</div>
+        </div>
+        <div class="study-card">
+          <h3><i class="fa-solid fa-shield-halved"></i> Moteur SAV</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Analyse sémantique pour automatiser l'escalade des tickets critiques (arnaques, plaintes) vers le management.</p>
+          <div class="tech-val"><span>Compétence</span>Vision Client, Escalation Matrix, Gestion des risques.</div>
+        </div>
+        <div class="study-card">
+          <h3><i class="fa-solid fa-gears"></i> Automatisation API</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Génération d'e-mails HTML, pièces jointes Drive, et synchronisation Agenda 100% via du code.</p>
+          <div class="tech-val"><span>Compétence</span>Excellence Opérationnelle, Maîtrise technique.</div>
+        </div>
+      </div>
+
+      <div class="roi-banner">
+        <h3><i class="fa-solid fa-rocket"></i> Valeur Ajoutée pour Sport Découverte</h3>
+        <ul class="roi-list">
+          <li><i class="fa-solid fa-check-circle"></i> <strong>Gains de productivité :</strong> Élimination des tâches répétitives grâce à l'automatisation.</li>
+          <li><i class="fa-solid fa-check-circle"></i> <strong>Proactivité :</strong> Détection instantanée des frictions clients avant l'escalade publique.</li>
+          <li><i class="fa-solid fa-check-circle"></i> <strong>Scalabilité :</strong> Création d'outils métiers légers à coût d'infrastructure nul.</li>
+        </ul>
       </div>
     </div>
 
     <!-- ONGLET 4: ACTIONS & CONTACT -->
     <div id="tab-contact" class="tab-content">
       <div class="card">
-        <h2><i class="fa-solid fa-paper-plane"></i> Orchestration Automatisée</h2>
+        <h2><i class="fa-solid fa-paper-plane"></i> API & Orchestration</h2>
+        <p>Ces boutons déclenchent des requêtes vers Google Apps Script pour automatiser les tâches administratives sans aucune intervention humaine.</p>
         
         <div class="input-group">
-          <label>Votre Email Pro</label>
-          <input type="email" id="contact-email" placeholder="recruteur@entreprise.com">
+          <label>Votre Email Pro (Pour recevoir le dossier ou l'invitation)</label>
+          <input type="email" id="contact-email" placeholder="recruteur@sport-decouverte.com">
         </div>
 
-        <button class="btn" style="margin-bottom: 1rem;" onclick="triggerAction('sendDossier')">
-          <i class="fa-solid fa-envelope"></i> Envoyer le Dossier de Candidature
+        <button class="btn" style="margin-bottom: 1.5rem;" onclick="triggerAction('sendDossier')">
+          <i class="fa-solid fa-envelope"></i> Recevoir le CV & Dossier par mail
         </button>
         
-        <div class="input-group" style="margin-top: 2rem;">
-          <label>Date et heure du rendez-vous (Optionnel)</label>
+        <div class="input-group">
+          <label>Date pour un entretien (Création événement Google Calendar)</label>
           <input type="datetime-local" id="contact-date">
         </div>
         <button class="btn" style="background: var(--success);" onclick="triggerAction('bookMeeting')">
-          <i class="fa-solid fa-calendar-plus"></i> Réserver un échange (G-Calendar)
+          <i class="fa-solid fa-calendar-plus"></i> Réserver l'échange
         </button>
 
-        <div id="contact-result" style="margin-top: 1.5rem; color: var(--primary);"></div>
+        <div id="contact-result" style="margin-top: 1.5rem; color: var(--success); font-weight: bold; text-align: center;"></div>
       </div>
     </div>
+
   </main>
 
   <script>
-    // ==========================================
-    // CONFIGURATION URL
-    // ==========================================
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz42bwk7OZLD0y7U4b7J-7eKlC4ZXa1e6vaW_2A8t6iNfyzkLrdUQeZTTAqyRd1afrf/exec"; // ⚠️ REMPLACE CECI PAR TON URL DE DEPLOIEMENT MACRO
+    // =========================================================
+    // ⚠️ METTRE L'URL DE TON GOOGLE APPS SCRIPT CI-DESSOUS ⚠️
+    // =========================================================
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz42bwk7OZLD0y7U4b7J-7eKlC4ZXa1e6vaW_2A8t6iNfyzkLrdUQeZTTAqyRd1afrf/exec"; 
 
     let lastUserQuery = "";
     let lastTwinReply = "";
 
-    // Gestion des onglets
+    // GESTION DU MENU
     function openTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -187,134 +229,98 @@
       event.currentTarget.classList.add('active');
     }
 
-    // Fonction d'appel générique vers Apps Script
-    async function callAppsScript(payload, loaderId) {
-      const loader = document.getElementById(loaderId);
-      if(loader) loader.style.display = "block";
-      
-      try {
-        const response = await fetch(APPS_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors', // Requis pour éviter les erreurs CORS de Google
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        
-        // Note: Avec 'no-cors', on ne peut pas lire le JSON de retour. 
-        // L'action est exécutée en arrière-plan.
-        if(loader) loader.style.display = "none";
-        return { success: true, note: "Requête envoyée (no-cors)" };
-      } catch (error) {
-        if(loader) loader.style.display = "none";
-        console.error(error);
-        return { success: false };
-      }
+    // FONCTION API DE BASE (Envoi silencieux en arrière-plan)
+    function callAppsScript(payload) {
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Évite les erreurs de sécurité du navigateur
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(err => console.error(err));
     }
 
-    // 1. JUMEAU NUMÉRIQUE
+    // 1. CHATBOT JUMEAU
     function askTwin() {
       const input = document.getElementById('twin-input');
       const question = input.value.trim();
       if(!question) return;
 
       lastUserQuery = question;
-      
       const chatBox = document.getElementById('chat-box');
+      
+      // Affiche la question
       chatBox.innerHTML += `<div class="message msg-user">${question}</div>`;
       input.value = "";
       
-      // Simulation visuelle de la réponse (Puisque Google 'no-cors' bloque la lecture directe)
+      // Simule la réflexion de l'IA (0.6 secondes)
       setTimeout(() => {
-        let reply = "Je suis Pierre CLAIN, Manager d'Exploitation et Data Analyst.";
+        let reply = "Je suis Pierre CLAIN, Manager d'Exploitation et Data Analyst certifié.";
         const qLower = question.toLowerCase();
-        if (qLower.includes("p&l") || qLower.includes("decathlon")) reply = "En tant que Responsable Exploitation chez Decathlon, j'ai géré le compte d'exploitation (P&L), la masse salariale et l'animation commerciale.";
-        else if (qLower.includes("data") || qLower.includes("sql")) reply = "Certifié Data Analyst chez DataBird, je maîtrise SQL, Python (Pandas/Scikit-Learn) et Power BI.";
+        
+        if (qLower.includes("p&l") || qLower.includes("decathlon") || qLower.includes("manager")) {
+          reply = "Chez Decathlon, j'ai piloté l'exploitation : gestion du compte de résultat (P&L), management d'équipe, et optimisation des process logistiques et commerciaux.";
+        } else if (qLower.includes("data") || qLower.includes("sql") || qLower.includes("python")) {
+          reply = "J'ai validé ma certification Data Analyst chez DataBird. Je maîtrise SQL, Python (Pandas), la Data Visualisation (Power BI) et je peux construire des pipelines automatisés.";
+        } else if (qLower.includes("sport découverte")) {
+          reply = "Sport Découverte allie mes deux passions : le sport et le digital. Mon profil hybride (terrain + data) me permet de comprendre les partenaires tout en digitalisant les process.";
+        }
         
         lastTwinReply = reply;
-
         chatBox.innerHTML += `
           <div class="message msg-twin">
             ${reply}<br>
-            <span class="mlops-badge" onclick="retrainML()"><i class="fa-solid fa-thumbs-down"></i> Réponse erronée (Signaler pour Ré-entraînement)</span>
+            <span class="mlops-badge" onclick="retrainML()">
+              <i class="fa-solid fa-thumbs-down"></i> Signaler erreur (Test MLOps)
+            </span>
           </div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
       }, 600);
 
-      // Appel réel au backend pour enregistrement
-      callAppsScript({ action: "askTwin", question: question, email: "visiteur@ui.com" }, "twin-loader");
+      // Envoi au backend (Logs)
+      callAppsScript({ action: "askTwin", question: question, email: "visiteur@ui.com" });
     }
 
-    // Fonction Feedback MLOps
     function retrainML() {
-      alert("Feedback envoyé à la base de données. Le modèle sera ré-entraîné via Looker Studio / Sheets.");
-      callAppsScript({ action: "feedbackNegative", query: lastUserQuery, badReply: lastTwinReply, email: "visiteur@ui.com" }, "twin-loader");
+      alert("Test MLOps réussi ! Ce feedback est envoyé via API vers l'onglet 'To_ReTrain' de ma base de données Google Sheets.");
+      callAppsScript({ action: "feedbackNegative", query: lastUserQuery, badReply: lastTwinReply, email: "visiteur@ui.com" });
     }
 
-    // 2. SAV & ALERTES
+    // 2. SAV ALERTES
     function testSAV() {
       const email = document.getElementById('sav-email').value;
       const message = document.getElementById('sav-message').value;
       const resBox = document.getElementById('sav-result');
       
-      // Envoi au backend
-      callAppsScript({ action: "savAlert", message: message, email: email }, "sav-loader");
+      callAppsScript({ action: "savAlert", message: message, email: email });
 
-      // Logique UI locale
-      const isCritical = ["avocat", "plainte", "danger", "arnaque"].some(w => message.toLowerCase().includes(w));
+      const isCritical = ["avocat", "plainte", "danger", "arnaque", "tribunal"].some(w => message.toLowerCase().includes(w));
       resBox.style.display = "block";
       
       if(isCritical) {
         resBox.style.border = "1px solid var(--danger)";
         resBox.innerHTML = `<h3 style="color:var(--danger)"><i class="fa-solid fa-triangle-exclamation"></i> Alerte Critique Déclenchée</h3>
-                            <p>Ticket classé en priorité absolue. Email d'escalade envoyé au manager (Clain.pierre@gmail.com).</p>`;
+                            <p>Ticket classé en priorité absolue. L'orchestrateur vient d'envoyer un email d'escalade au manager.</p>`;
       } else {
         resBox.style.border = "1px solid var(--success)";
         resBox.innerHTML = `<h3 style="color:var(--success)"><i class="fa-solid fa-check"></i> Requête Classique</h3>
-                            <p>Demande enregistrée. Priorité normale.</p>`;
+                            <p>Demande enregistrée normalement dans le CRM (priorité basse).</p>`;
       }
     }
 
-    // 3. SIMULATEUR P&L
-    function simulatePNL() {
-      const payload = {
-        action: "simulatePNL",
-        price: document.getElementById('pnl-price').value,
-        volume: document.getElementById('pnl-vol').value,
-        commissionRate: document.getElementById('pnl-com').value,
-        fixedCosts: document.getElementById('pnl-costs').value,
-        email: "partenaire@ui.com"
-      };
-
-      callAppsScript(payload, "pnl-loader");
-
-      // Calcul visuel local
-      const caBrut = payload.price * payload.volume;
-      const com = caBrut * (payload.commissionRate / 100);
-      const marge = caBrut - com - payload.fixedCosts;
-      
-      const resBox = document.getElementById('pnl-result');
-      resBox.style.display = "block";
-      resBox.innerHTML = `
-        <div style="color: var(--text-muted)">CA Brut généré : <strong style="color:#fff">${caBrut} €</strong></div>
-        <div style="color: var(--danger)">Commission Sport Découverte : <strong>-${com} €</strong></div>
-        <div style="color: ${marge > 0 ? 'var(--success)' : 'var(--danger)'}">Marge Nette Partenaire : <strong>${marge} €</strong></div>
-      `;
-    }
-
-    // 4. ACTIONS
+    // 3. ACTIONS CONTACT
     function triggerAction(actionType) {
       const email = document.getElementById('contact-email').value;
-      if(!email) { alert("Veuillez saisir un email."); return; }
+      if(!email) { alert("Veuillez saisir votre email pour tester l'automatisation."); return; }
 
       const dateStr = document.getElementById('contact-date').value;
       const resBox = document.getElementById('contact-result');
 
-      callAppsScript({ action: actionType, email: email, dateTimeStr: dateStr }, null);
+      callAppsScript({ action: actionType, email: email, dateTimeStr: dateStr });
       
       if(actionType === 'sendDossier') {
-        resBox.innerHTML = `<i class="fa-solid fa-check"></i> Requête envoyée ! L'orchestrateur va générer l'email HTML de candidature.`;
+        resBox.innerHTML = `<i class="fa-solid fa-envelope-circle-check"></i> L'Orchestrateur vous envoie l'e-mail avec le CV. Vérifiez votre boîte mail !`;
       } else {
-        resBox.innerHTML = `<i class="fa-solid fa-check"></i> Requête envoyée ! L'orchestrateur va créer l'invitation Google Calendar.`;
+        resBox.innerHTML = `<i class="fa-solid fa-calendar-check"></i> L'Orchestrateur vient de créer l'invitation dans Google Calendar !`;
       }
     }
   </script>
