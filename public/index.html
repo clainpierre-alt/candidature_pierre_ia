@@ -1,1 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pierre Clain - Dashboard Stratégique & IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&family=Azeret+Mono&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            background: #0f172a; 
+            color: #94a3b8; 
+            font-family: 'Urbanist', sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 30px; 
+            padding: 40px 20px; 
+            margin: 0; 
+        }
+        .card { 
+            background: #020617; 
+            border: 1px solid rgba(6, 182, 212, 0.2); 
+            border-radius: 12px; 
+            max-width: 900px; 
+            width: 100%; 
+            padding: 30px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+        }
+        h1, h2 { color: #f8fafc; margin-top: 0; }
+        .accent-cyan { color: #06b6d4; }
+        .accent-purple { color: #c084fc; }
+        .accent-blue { color: #3b82f6; }
+        input, textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border-radius: 6px; 
+            background: #0f172a; 
+            color: white; 
+            border: 1px solid #334155; 
+            margin-bottom: 10px; 
+            font-family: inherit; 
+        }
+        button { 
+            padding: 12px 24px; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: opacity 0.2s;
+        }
+        button:hover { opacity: 0.9; }
+        .btn-cyan { background: #06b6d4; } 
+        .btn-purple { background: #c084fc; } 
+        .btn-blue { background: #3b82f6; }
+        .response-box { 
+            background: #1e293b; 
+            padding: 15px; 
+            border-radius: 6px; 
+            margin-top: 15px; 
+            display: none; 
+            color: #f8fafc;
+        }
+        .chat-container { 
+            height: 250px; 
+            overflow-y: auto; 
+            background: #1e293b; 
+            padding: 15px; 
+            border-radius: 6px; 
+            margin-bottom: 15px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+        }
+        .msg { padding: 10px 15px; border-radius: 12px; max-width: 80%; }
+        .msg.ia { background: #0f172a; align-self: flex-start; border-left: 3px solid #3b82f6; color: #f8fafc; }
+        .msg.user { background: #3b82f6; align-self: flex-end; color: white; }
+    </style>
+</head>
+<body>
 
+    <!-- ENTÊTE -->
+    <div class="card" style="text-align: center;">
+        <h1 style="font-size: 42px; margin-bottom: 10px;">PIERRE <span class="accent-cyan">CLAIN</span></h1>
+        <p style="font-size: 18px; margin: 0;">Candidature Responsable Partenariats & Commerce - <strong>Sport Découverte</strong></p>
+    </div>
+
+    <!-- MODULE 1 : EMAIL AUTOMATION -->
+    <div class="card" style="border-color: #06b6d4;">
+        <h2><span class="accent-cyan">1. Workflow Email</span> (Google Apps Script)</h2>
+        <p>Testez l'envoi d'un mail d'automatisation exécuté via Google Apps Script :</p>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <input type="email" id="emailInput" placeholder="votre.email@domaine.com" style="flex: 1; min-width: 200px;">
+            <button class="btn-cyan" onclick="sendMail()">Envoyer le mail</button>
+        </div>
+        <div id="resMail" class="response-box" style="border-left: 4px solid #06b6d4;"></div>
+    </div>
+
+    <!-- MODULE 2 : ASSISTANT SAV -->
+    <div class="card" style="border-color: #c084fc;">
+        <h2><span class="accent-purple">2. Assistant SAV</span> (Règles automatisées)</h2>
+        <p>Simulation du traitement automatique d'une réclamation client :</p>
+        <textarea id="savInput" rows="3" placeholder="Ex: Mon vol en montgolfière a été annulé à cause de la météo, je veux un remboursement."></textarea>
+        <button class="btn-purple" onclick="askSAV()">Générer une réponse</button>
+        <div id="resSAV" class="response-box" style="border-left: 4px solid #c084fc; font-family: 'Azeret Mono', monospace;"></div>
+    </div>
+
+    <!-- MODULE 3 : JUMEAU NUMÉRIQUE -->
+    <div class="card" style="border-color: #3b82f6;">
+        <h2><span class="accent-blue">3. Jumeau Numérique</span> (Avatar Pierre Clain)</h2>
+        <p>Posez une question sur mon parcours, mes compétences Tech ou Retail :</p>
+        <div class="chat-container" id="chatBox">
+            <div class="msg ia"><strong class="accent-blue">Pierre (IA) :</strong> Bonjour ! Posez-moi une question sur mes compétences ou mes expériences.</div>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="twinInput" placeholder="Ex: Quelle est ton expérience dans le Retail ?">
+            <button class="btn-blue" onclick="askTwin()">Envoyer</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS JAVASCRIPT -->
+    <script>
+        // 1. Fonction Workflow Email
+        async function sendMail() {
+            const email = document.getElementById('emailInput').value;
+            const resBox = document.getElementById('resMail');
+            if(!email) return;
+            
+            resBox.style.display = 'block'; 
+            resBox.innerHTML = "⚡ Exécution du script Google en cours...";
+            
+            try {
+                const req = await fetch('/api/send-email', { 
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({email}) 
+                });
+                const res = await req.json();
+                resBox.innerHTML = res.message || res.error;
+            } catch(e) { 
+                resBox.innerHTML = "❌ Erreur de connexion avec le serveur."; 
+            }
+        }
+
+        // 2. Fonction Assistant SAV
+        async function askSAV() {
+            const msg = document.getElementById('savInput').value;
+            const resBox = document.getElementById('resSAV');
+            if(!msg) return;
+            
+            resBox.style.display = 'block'; 
+            resBox.innerHTML = "⏳ Analyse de la requête...";
+            
+            try {
+                const req = await fetch('/api/ia-sav', { 
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({message: msg}) 
+                });
+                const res = await req.json();
+                resBox.innerHTML = res.reply ? res.reply.replace(/\n/g, '<br>') : "Aucune réponse reçue.";
+            } catch(e) { 
+                resBox.innerHTML = "❌ Erreur de connexion."; 
+            }
+        }
+
+        // 3. Fonction Jumeau Numérique
+        async function askTwin() {
+            const input = document.getElementById('twinInput');
+            const msg = input.value;
+            const chatBox = document.getElementById('chatBox');
+            if(!msg) return;
+
+            // Affichage du message de l'utilisateur
+            chatBox.innerHTML += `<div class="msg user">${msg}</div>`;
+            const loaderId = "load-" + Date.now();
+            chatBox.innerHTML += `<div id="${loaderId}" class="msg ia" style="color: #94a3b8;">Réponse en cours...</div>`;
+            input.value = ""; 
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                const req = await fetch('/api/ia-twin', { 
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({question: msg}) 
+                });
+                const res = await req.json();
+                
+                document.getElementById(loaderId).remove();
+                chatBox.innerHTML += `<div class="msg ia"><strong class="accent-blue">Pierre (IA) :</strong> ${res.reply}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch(e) {
+                document.getElementById(loaderId).innerHTML = "❌ Avatar momentanément indisponible.";
+            }
+        }
+
+        // Touche Entrée pour envoyer dans le chat du Jumeau
+        document.getElementById('twinInput').addEventListener('keypress', e => { 
+            if(e.key === 'Enter') askTwin(); 
+        });
+    </script>
+</body>
+</html>
