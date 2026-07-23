@@ -4,57 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pierre Clain — Candidature & Control Tower IA</title>
-<!-- SÉLECTEUR DE PROFIL RECRUTEUR (PITCH EXPRESS) -->
-<div class="max-w-3xl mx-auto mb-10">
-  <p class="text-xs uppercase tracking-widest text-slate-400 text-center font-bold mb-3">
-    <i class="fa-solid fa-sliders mr-1 text-cyan-400"></i> Personnalisez l'expérience selon votre profil :
-  </p>
-  
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-1.5 glass-card rounded-2xl border border-white/10">
-    <!-- Option RH -->
-    <button onclick="setPersona('rh')" id="persona-btn-rh" 
-      class="persona-btn active flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-semibold transition-all duration-300">
-      <i class="fa-solid fa-user-check text-base"></i>
-      <span>RH & Recrutement</span>
-    </button>
 
-    <!-- Option Tech / Data -->
-    <button onclick="setPersona('tech')" id="persona-btn-tech" 
-      class="persona-btn flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-semibold transition-all duration-300">
-      <i class="fa-solid fa-code text-base"></i>
-      <span>Lead Data & Tech</span>
-    </button>
-
-    <!-- Option Ops / Business -->
-    <button onclick="setPersona('ops')" id="persona-btn-ops" 
-      class="persona-btn flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-semibold transition-all duration-300">
-      <i class="fa-solid fa-chart-pie text-base"></i>
-      <span>Ops & Direction</span>
-    </button>
-  </div>
-</div>
-
-<!-- BANNIÈRE DE PITCH DYNAMIQUE -->
-<div id="persona-banner" class="glass-card rounded-2xl p-6 mb-12 border-l-4 border-cyan-400 transition-all duration-500">
-  <div class="flex items-start gap-4">
-    <div id="persona-icon" class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl shrink-0">
-      <i class="fa-solid fa-user-check"></i>
-    </div>
-    <div>
-      <h4 id="persona-title" class="font-bold text-base text-white mb-1">
-        Focus : Leadership, Management & Culture d'Entreprise
-      </h4>
-      <p id="persona-desc" class="text-sm text-slate-300 leading-relaxed">
-        Ancien Manager d'Exploitation Decathlon, Pierre allie écoute client, gestion des équipes terrain et vision globale des opérations.
-      </p>
-      <div id="persona-tags" class="flex flex-wrap gap-2 mt-3">
-        <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">Soft Skills</span>
-        <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">Management</span>
-        <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">Culture Decathlon</span>
-      </div>
-    </div>
-  </div>
-</div>
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -129,6 +79,13 @@
       70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
       100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
+
+    /* Boutons Persona actifs */
+    .persona-btn.active {
+      background: rgba(0, 242, 254, 0.15);
+      border-color: rgba(0, 242, 254, 0.4);
+      color: #00f2fe;
+    }
   </style>
 </head>
 <body class="min-h-screen relative flex flex-col justify-between antialiased">
@@ -162,7 +119,7 @@
   <!-- HERO SECTION -->
   <main class="relative z-10 max-w-7xl mx-auto px-6 py-12 flex-1">
     
-    <div class="text-center max-w-3xl mx-auto mb-16">
+    <div class="text-center max-w-3xl mx-auto mb-10">
       <span class="px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-blue-500/10 text-cyan-400 border border-cyan-500/20 inline-block mb-4">
         <i class="fa-solid fa-bolt mr-2"></i>Candidature Augmentée & Control Tower IA
       </span>
@@ -172,6 +129,58 @@
       <p class="text-slate-300 text-lg leading-relaxed">
         Découvrez comment mon double profil <strong>Manager Exploitation Decathlon</strong> et <strong>Data Analyst</strong> apporte une valeur immédiate à <strong>Sport Découverte</strong>.
       </p>
+    </div>
+
+    <!-- SÉLECTEUR DE PROFIL RECRUTEUR (PITCH EXPRESS) -->
+    <div class="max-w-3xl mx-auto mb-6">
+      <p class="text-xs uppercase tracking-widest text-slate-400 text-center font-bold mb-3">
+        <i class="fa-solid fa-sliders mr-1 text-cyan-400"></i> Personnalisez l'expérience selon votre profil :
+      </p>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-1.5 glass-card rounded-2xl border border-white/10">
+        <!-- Option RH -->
+        <button onclick="setPersona('rh')" id="persona-btn-rh" 
+          class="persona-btn active flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-semibold border border-transparent text-slate-300 hover:text-white transition-all duration-300">
+          <i class="fa-solid fa-user-check text-base"></i>
+          <span>RH & Recrutement</span>
+        </button>
+
+        <!-- Option Tech / Data -->
+        <button onclick="setPersona('tech')" id="persona-btn-tech" 
+          class="persona-btn flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-semibold border border-transparent text-slate-300 hover:text-white transition-all duration-300">
+          <i class="fa-solid fa-code text-base"></i>
+          <span>Lead Data & Tech</span>
+        </button>
+
+        <!-- Option Ops / Business -->
+        <button onclick="setPersona('ops')" id="persona-btn-ops" 
+          class="persona-btn flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-semibold border border-transparent text-slate-300 hover:text-white transition-all duration-300">
+          <i class="fa-solid fa-chart-pie text-base"></i>
+          <span>Ops & Direction</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- BANNIÈRE DE PITCH DYNAMIQUE -->
+    <div id="persona-banner" class="glass-card rounded-2xl p-6 mb-12 border-l-4 border-cyan-400 transition-all duration-500 max-w-3xl mx-auto">
+      <div class="flex items-start gap-4">
+        <div id="persona-icon" class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl shrink-0">
+          <i class="fa-solid fa-user-check"></i>
+        </div>
+        <div>
+          <h4 id="persona-title" class="font-bold text-base text-white mb-1">
+            Focus : Leadership, Management & Culture d'Entreprise
+          </h4>
+          <p id="persona-desc" class="text-sm text-slate-300 leading-relaxed">
+            Ancien Manager d'Exploitation Decathlon, Pierre allie écoute client, gestion des équipes terrain et vision globale des opérations.
+          </p>
+          <div id="persona-tags" class="flex flex-wrap gap-2 mt-3">
+            <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">Soft Skills</span>
+            <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">Management</span>
+            <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">Culture Decathlon</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- IA DEMO GRID -->
@@ -358,7 +367,6 @@
       </div>
 
       <div class="w-full h-[400px] rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/90 flex items-center justify-center relative">
-        <!-- Remplace le lien iframe ci-dessous par ton URL d'intégration Looker Studio -->
         <iframe 
           src="https://lookerstudio.google.com/embed/reporting/YOUR_REPORT_ID/page/1M" 
           frameborder="0" 
@@ -396,7 +404,49 @@
 
   <!-- JAVASCRIPT LOGIC FULLY INTEGRATED -->
   <script>
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_LNx6xfT-eLu9jDG6nQcRxXUSUCmYsyyAqYYj_8636rYPqrWmiWUnagfkjqyKOojlIw/exec"; // Remplace par ton URL Apps Script
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_LNx6xfT-eLu9jDG6nQcRxXUSUCmYsyyAqYYj_8636rYPqrWmiWUnagfkjqyKOojlIw/exec";
+
+    // --------------------------------------------------------------------------
+    // 0. GESTION DU PROFIL RECRUTEUR (PITCH EXPRESS / PERSONAS)
+    // --------------------------------------------------------------------------
+    const personas = {
+      rh: {
+        title: "Focus : Leadership, Management & Culture d'Entreprise",
+        desc: "Ancien Manager d'Exploitation Decathlon, Pierre allie écoute client, gestion des équipes terrain et vision globale des opérations.",
+        icon: "fa-user-check",
+        tags: ["Soft Skills", "Management", "Culture Decathlon"]
+      },
+      tech: {
+        title: "Focus : Stack Data, FastAPI, ML & Automation",
+        desc: "Formé en Data Analysis (SQL, Python, Pandas, DataBird), Pierre conçoit des API robustes et intègre des modèles ML pour automatiser les flux métier.",
+        icon: "fa-code",
+        tags: ["Python / FastAPI", "SQL & Pandas", "MLOps / Scikit-Learn"]
+      },
+      ops: {
+        title: "Focus : P&L, Performance Opérationnelle & Process Partner",
+        desc: "Expert du pilotage d'activités commercialement exigeantes : optimisation des marges, suivi KPIs et simplification des parcours partenaires.",
+        icon: "fa-chart-pie",
+        tags: ["Gestion P&L", "KPIs Ops", "Relation Partenaires"]
+      }
+    };
+
+    function setPersona(type) {
+      document.querySelectorAll('.persona-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`persona-btn-${type}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const data = personas[type];
+      if (!data) return;
+
+      document.getElementById('persona-title').innerText = data.title;
+      document.getElementById('persona-desc').innerText = data.desc;
+      document.getElementById('persona-icon').innerHTML = `<i class="fa-solid ${data.icon}"></i>`;
+
+      const tagsContainer = document.getElementById('persona-tags');
+      tagsContainer.innerHTML = data.tags.map(t => 
+        `<span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">${t}</span>`
+      ).join('');
+    }
 
     // --------------------------------------------------------------------------
     // 1. RECONNAISSANCE VOCALE (SPEECH-TO-TEXT) & SYNTHÈSE VOCALE (TEXT-TO-SPEECH)
@@ -446,7 +496,7 @@
     function readText(elementId) {
       const text = document.getElementById(elementId).innerText;
       if ('speechSynthesis' in window && text) {
-        window.speechSynthesis.cancel(); // Stoppe la lecture précédente
+        window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'fr-FR';
         window.speechSynthesis.speak(utterance);
@@ -603,7 +653,7 @@
       }
     });
 
-    // Calcul initial P&L au chargement
+    // Initialisations au chargement
     calculatePNL();
   </script>
 </body>
