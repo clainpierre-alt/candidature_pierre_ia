@@ -1,523 +1,351 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pierre Clain - Responsable Partenariats & Commerce | Sport Découverte</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --sd-red: #e61c24;
-            --sd-red-hover: #c41219;
-            --sd-blue: #1e293b;
-            --sd-blue-dark: #0f172a;
-            --sd-bg-gray: #f4f6f9;
-            --sd-card-bg: #ffffff;
-            --sd-border: #e2e8f0;
-            --sd-text-dark: #1e293b;
-            --sd-text-muted: #64748b;
-            --sd-green: #10b981;
-            --sd-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pierre Clain — Candidature & Hub IA</title>
+  
+  <!-- Tailwind CSS & FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              500: '#0066ff',
+              600: '#0052cc',
+              900: '#0a192f',
+            },
+            accent: '#00f2fe'
+          }
         }
+      }
+    }
+  </script>
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+  <style>
+    body {
+      background: #07090e;
+      color: #f3f4f6;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
 
-        body { 
-            background-color: var(--sd-bg-gray);
-            color: var(--sd-text-dark); 
-            font-family: 'Open Sans', sans-serif; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            padding-bottom: 60px;
-            min-height: 100vh;
-        }
+    /* Effets de fond lumineux */
+    .glow-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        /* HEADER SPORT DÉCOUVERTE */
-        .sd-header {
-            width: 100%;
-            background: #ffffff;
-            border-bottom: 3px solid var(--sd-red);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 16px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    /* Effet Glassmorphism */
+    .glass-card {
+      background: rgba(17, 24, 39, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
 
-        .sd-header-content {
-            max-width: 1000px;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .glass-card:hover {
+      border-color: rgba(0, 242, 254, 0.3);
+      box-shadow: 0 0 25px rgba(0, 102, 255, 0.2);
+    }
 
-        .sd-logo {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 1.6rem;
-            color: var(--sd-blue-dark);
-            text-transform: uppercase;
-            letter-spacing: -0.5px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+    /* Gradient de texte */
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #00f2fe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        .sd-logo span { color: var(--sd-red); }
-
-        .sd-tagline {
-            font-size: 0.85rem;
-            color: var(--sd-text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* CONTAINER MAIN */
-        .container {
-            max-width: 1000px;
-            width: 100%;
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-        }
-
-        /* CARD STYLE SPORT DÉCOUVERTE */
-        .card { 
-            background: var(--sd-card-bg); 
-            border: 1px solid var(--sd-border); 
-            border-radius: 12px; 
-            padding: 30px; 
-            box-shadow: var(--sd-shadow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .card:hover {
-            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.12);
-        }
-
-        .hero-card {
-            background: linear-gradient(135deg, var(--sd-blue-dark) 0%, #1e293b 100%);
-            color: white;
-            border: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-card::before {
-            content: "";
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background: rgba(230, 28, 36, 0.15);
-            border-radius: 50%;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .hero-card h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            line-height: 1.2;
-        }
-
-        .hero-card p {
-            color: #cbd5e1;
-            font-size: 1.05rem;
-            line-height: 1.6;
-        }
-
-        .hero-badges {
-            display: flex;
-            gap: 10px;
-            margin-top: 18px;
-            flex-wrap: wrap;
-        }
-
-        .badge-pill {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        h2 { 
-            color: var(--sd-blue-dark); 
-            font-size: 1.35rem; 
-            font-weight: 700;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-subtitle {
-            color: var(--sd-text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-        }
-
-        /* FORMULAIRES & INPUTS */
-        .input-group {
-            display: flex;
-            gap: 12px;
-            margin-top: 12px;
-        }
-
-        input, textarea { 
-            width: 100%; 
-            padding: 14px 18px; 
-            border-radius: 8px; 
-            background: #ffffff; 
-            color: var(--sd-text-dark); 
-            border: 1px solid #cbd5e1; 
-            font-family: inherit; 
-            font-size: 0.95rem;
-            transition: border-color 0.2s;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--sd-red);
-            box-shadow: 0 0 0 3px rgba(230, 28, 36, 0.15);
-        }
-
-        button { 
-            padding: 14px 26px; 
-            color: white; 
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700; 
-            font-size: 0.95rem;
-            transition: background 0.2s, transform 0.1s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            white-space: nowrap;
-        }
-
-        button:active { transform: scale(0.98); }
-
-        .btn-sd-red { background: var(--sd-red); }
-        .btn-sd-red:hover { background: var(--sd-red-hover); }
-
-        .btn-sd-blue { background: var(--sd-blue); }
-        .btn-sd-blue:hover { background: var(--sd-blue-dark); }
-
-        /* SUGGESTIONS & CHIPS HUMAINES */
-        .chip-container {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 14px;
-        }
-
-        .chip {
-            background: #f1f5f9;
-            border: 1px solid var(--sd-border);
-            color: var(--sd-text-dark);
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .chip:hover {
-            background: #e2e8f0;
-            border-color: #cbd5e1;
-            color: var(--sd-red);
-        }
-
-        /* RÉPONSES ET MESSAGES */
-        .response-box { 
-            background: #f8fafc; 
-            border-radius: 8px; 
-            padding: 20px; 
-            margin-top: 18px; 
-            display: none; 
-            color: var(--sd-text-dark);
-            border-left: 4px solid var(--sd-red);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .chat-container { 
-            height: 340px; 
-            overflow-y: auto; 
-            background: #f8fafc; 
-            border: 1px solid var(--sd-border);
-            padding: 20px; 
-            border-radius: 8px; 
-            margin-top: 16px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 14px; 
-        }
-
-        .msg { padding: 14px 18px; border-radius: 12px; max-width: 88%; font-size: 0.95rem; line-height: 1.6; }
-        .msg.ia { 
-            background: #ffffff; 
-            align-self: flex-start; 
-            border-left: 4px solid var(--sd-red); 
-            color: var(--sd-text-dark); 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .msg.user { 
-            background: var(--sd-blue); 
-            align-self: flex-end; 
-            color: white; 
-        }
-
-        /* SPINNER */
-        .spinner {
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.8s linear infinite;
-            display: inline-block;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-    </style>
+    /* Animation pulse d'état */
+    .pulse-online {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      animation: pulse-green 2s infinite;
+    }
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+  </style>
 </head>
-<body>
+<body class="min-h-screen relative flex flex-col justify-between antialiased">
 
-    <!-- NAV / HEADER BRANDING SPORT DÉCOUVERTE -->
-    <header class="sd-header">
-        <div class="sd-header-content">
-            <div class="sd-logo">Sport<span>Découverte</span></div>
-            <div class="sd-tagline">Espace Partenariats & Innovation Data</div>
+  <!-- Lumières de fond (Glows) -->
+  <div class="glow-blob w-[500px] h-[500px] bg-blue-600 -top-20 -left-20"></div>
+  <div class="glow-blob w-[400px] h-[400px] bg-cyan-500 top-1/2 -right-20"></div>
+  <div class="glow-blob w-[600px] h-[600px] bg-purple-600 -bottom-20 left-1/3"></div>
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 glass-card border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center font-extrabold text-xl shadow-lg shadow-cyan-500/30">
+          P
         </div>
-    </header>
+        <div>
+          <h1 class="font-bold text-lg leading-none">Pierre Clain</h1>
+          <p class="text-xs text-slate-400 mt-1">Data Analyst x Manager Exploitation</p>
+        </div>
+      </div>
 
-    <div class="container">
-        
-        <!-- HERO / CANDIDATURE PIERRE CLAIN -->
-        <div class="card hero-card">
-            <h1>Candidature : Responsable Partenariats & Commerce</h1>
-            <p><strong>Pierre Clain</strong> — Ancien Responsable Exploitation Decathlon & Certifié Data Analyse (DataBird). Bienvenue sur mon espace interactif dédié au réseau Sport Découverte !</p>
-            <div class="hero-badges">
-                <span class="badge-pill">📌 Gestion P&L & Management</span>
-                <span class="badge-pill">📊 Data & Analytics (SQL / Python)</span>
-                <span class="badge-pill">⚡ Automation Apps Script & Node.js</span>
+      <!-- Status Indicator -->
+      <div class="hidden md:flex items-center gap-3 px-4 py-2 rounded-full glass-card text-xs font-medium">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 pulse-online"></span>
+        <span class="text-slate-300">FastAPI ML & Apps Script : <strong class="text-emerald-400">Opérationnels</strong></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <main class="relative z-10 max-w-7xl mx-auto px-6 py-12 flex-1">
+    
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-blue-500/10 text-cyan-400 border border-cyan-500/20 inline-block mb-4">
+        <i class="fa-solid fa-bolt mr-2"></i>Candidature Augmentée par IA
+      </span>
+      <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 gradient-text">
+        Piloter l'Expérience & Accélérer la Data
+      </h2>
+      <p class="text-slate-300 text-lg leading-relaxed">
+        Découvrez comment mon double profil <strong>Manager Exploitation Decathlon</strong> et <strong>Data Analyst</strong> apporte une valeur immédiate à <strong>Sport Découverte</strong>.
+      </p>
+    </div>
+
+    <!-- IA DEMO GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+      
+      <!-- MODULE 1 : ASSISTANT SAV ML -->
+      <div class="glass-card rounded-3xl p-8 transition-all duration-300 relative overflow-hidden group">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl">
+              <i class="fa-solid fa-headset"></i>
             </div>
+            <div>
+              <h3 class="text-xl font-bold">Moteur SAV Intelligents</h3>
+              <p class="text-xs text-slate-400">Classificateur Scikit-Learn (NLP)</p>
+            </div>
+          </div>
+          <span class="text-xs bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full border border-blue-500/30">SAV Partner</span>
         </div>
 
-        <!-- MODULE 1 : WORKFLOW EMAIL -->
-        <div class="card">
-            <h2>📬 Transmission Automatique du Dossier</h2>
-            <p class="section-subtitle">Recevez instantanément par e-mail mon CV complet, mon étude de réseau de partenaires et mes projets d'optimisation :</p>
-            <div class="input-group">
-                <input type="email" id="emailInput" placeholder="Saisissez votre adresse e-mail professionnelle...">
-                <button class="btn-sd-red" id="btnMail" onclick="sendMail()">🚀 Recevoir mon dossier</button>
+        <p class="text-sm text-slate-300 mb-6">
+          Testez l'analyse automatique d'intentions client/partenaire (ex: météo, annulations, retards).
+        </p>
+
+        <!-- Form SAV -->
+        <form id="form-sav" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Message simulateur</label>
+            <input type="text" id="sav-input" placeholder="ex: Saut en parachute annulé pour météo..." 
+              class="w-full bg-slate-900/80 border border-slate-700 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 rounded-xl px-4 py-3.5 text-sm outline-none transition-all placeholder:text-slate-500">
+          </div>
+          <button type="submit" id="sav-btn" 
+            class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-cyan-500/25 transition-all flex items-center justify-center gap-2">
+            <span>Analyser la requête</span>
+            <i class="fa-solid fa-paper-plane text-xs"></i>
+          </button>
+        </form>
+
+        <!-- Response SAV Box -->
+        <div id="sav-result" class="hidden mt-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-sm">
+          <div class="flex items-center justify-between mb-2 pb-2 border-b border-slate-800">
+            <span class="text-xs font-semibold text-cyan-400 flex items-center gap-1.5">
+              <i class="fa-solid fa-robot"></i> Réponse IA
+            </span>
+            <span id="sav-confidence" class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Confiance: --</span>
+          </div>
+          <p id="sav-text" class="text-slate-300 leading-relaxed"></p>
+        </div>
+      </div>
+
+      <!-- MODULE 2 : JUMEAU NUMÉRIQUE -->
+      <div class="glass-card rounded-3xl p-8 transition-all duration-300 relative overflow-hidden group">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl">
+              <i class="fa-solid fa-user-gear"></i>
             </div>
-            <div id="resMail" class="response-box"></div>
+            <div>
+              <h3 class="text-xl font-bold">Jumeau Numérique</h3>
+              <p class="text-xs text-slate-400">Interrogez mon parcours & vision</p>
+            </div>
+          </div>
+          <span class="text-xs bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full border border-purple-500/30">Interactive Resume</span>
         </div>
 
-        <!-- MODULE 2 : ASSISTANT SAV & LITIĠES PARTENAIRES -->
-        <div class="card">
-            <h2>🛟 Moteur de Résolution des Réclamations & Litiges</h2>
-            <p class="section-subtitle">Simulez le traitement automatique et humain des demandes de clients ou prestataires :</p>
+        <p class="text-sm text-slate-300 mb-6">
+          Posez une question sur mon pilotage P&L, mes compétences SQL/Python ou mes motivations.
+        </p>
 
-            <textarea id="savInput" rows="2" placeholder="Décrivez un cas (ex: Météo défavorable pour mon saut en parachute, partenaire injoignable, demande de report...)"></textarea>
-            
-            <div class="chip-container">
-                <span class="chip" onclick="triggerSAV('Mon activité saut en parachute a été annulée à cause de la météo')">🌧️ Annulation météo</span>
-                <span class="chip" onclick="triggerSAV('Le partenaire de pilotage sur circuit est totalement injoignable par téléphone')">📞 Partenaire injoignable</span>
-                <span class="chip" onclick="triggerSAV('Je souhaite modifier la date de ma réservation de vol en montgolfière')">📅 Report de date</span>
-                <span class="chip" onclick="triggerSAV('Je demande le remboursement de ma réservation')">💳 Demande de remboursement</span>
-            </div>
+        <!-- Form Twin -->
+        <form id="form-twin" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Question sur mon profil</label>
+            <input type="text" id="twin-input" placeholder="ex: Parle-moi de ton expérience en gestion P&L..." 
+              class="w-full bg-slate-900/80 border border-slate-700 focus:border-purple-400 focus:ring-1 focus:ring-purple-400 rounded-xl px-4 py-3.5 text-sm outline-none transition-all placeholder:text-slate-500">
+          </div>
+          <button type="submit" id="twin-btn" 
+            class="w-full bg-gradient-to-r from-purple-600 to-indigo-500 hover:from-purple-500 hover:to-indigo-400 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-purple-500/25 transition-all flex items-center justify-center gap-2">
+            <span>Interroger l'IA Pierre</span>
+            <i class="fa-solid fa-comments text-xs"></i>
+          </button>
+        </form>
 
-            <div style="margin-top: 16px;">
-                <button class="btn-sd-red" id="btnSAV" onclick="askSAV()">⚡ Obtenir la réponse détaillée</button>
-            </div>
-            <div id="resSAV" class="response-box"></div>
+        <!-- Response Twin Box -->
+        <div id="twin-result" class="hidden mt-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-sm">
+          <div class="flex items-center justify-between mb-2 pb-2 border-b border-slate-800">
+            <span class="text-xs font-semibold text-purple-400 flex items-center gap-1.5">
+              <i class="fa-solid fa-brain"></i> Pierre IA
+            </span>
+          </div>
+          <p id="twin-text" class="text-slate-300 leading-relaxed"></p>
         </div>
-
-        <!-- MODULE 3 : JUMEAU NUMÉRIQUE (IA TWIN) -->
-        <div class="card">
-            <h2>💬 Échange Direct avec mon Jumeau Numérique</h2>
-            <p class="section-subtitle">Interrogez directement mon avatar entraîné sur mon parcours, mes compétences et ma vision du poste :</p>
-            
-            <div class="chip-container">
-                <span class="chip" onclick="askTwinSuggested('Quelle est ton expérience managériale et en gestion de P&L ?')">📊 P&L & Leadership</span>
-                <span class="chip" onclick="askTwinSuggested('Quelles sont tes compétences techniques en Data et Automatisation ?')">🛠️ Data, SQL & Python</span>
-                <span class="chip" onclick="askTwinSuggested('Pourquoi souhaites-tu rejoindre Sport Découverte en tant que Responsable Partenariats ?')">🎯 Vision Sport Découverte</span>
-            </div>
-
-            <div class="chat-container" id="chatBox">
-                <div class="msg ia"><strong>Pierre Clain (IA) :</strong> Bonjour ! Posez-moi toutes vos questions sur mon parcours chez Decathlon, mes projets Data ou mes ambitions pour développer le réseau de partenaires Sport Découverte.</div>
-            </div>
-
-            <div class="input-group">
-                <input type="text" id="twinInput" placeholder="Posez une question directe...">
-                <button class="btn-sd-blue" id="btnTwin" onclick="askTwin()">Envoyer</button>
-            </div>
-        </div>
+      </div>
 
     </div>
 
-    <script>
-        // --- 1. EMAIL WORKFLOW ---
-        async function sendMail() {
-            const emailInput = document.getElementById('emailInput');
-            const email = emailInput.value.trim();
-            const resBox = document.getElementById('resMail');
-            const btn = document.getElementById('btnMail');
-            
-            if(!email) {
-                resBox.style.display = 'block';
-                resBox.style.borderLeftColor = 'var(--sd-red)';
-                resBox.innerHTML = "⚠️ Veuillez saisir une adresse e-mail valide pour recevoir le dossier.";
-                return;
-            }
-            
-            btn.innerHTML = `<span class="spinner"></span> Envoi en cours...`;
-            btn.disabled = true;
-            resBox.style.display = 'block'; 
-            resBox.style.borderLeftColor = 'var(--sd-blue)';
-            resBox.innerHTML = "⚡ Préparation et envoi du dossier de candidature...";
-            
-            try {
-                const req = await fetch('/api/send-email', { 
-                    method: 'POST', 
-                    headers: {'Content-Type': 'application/json'}, 
-                    body: JSON.stringify({ email }) 
-                });
-                const res = await req.json();
-                
-                if (res.success) {
-                    resBox.style.borderLeftColor = 'var(--sd-green)';
-                    resBox.innerHTML = `✅ <strong>Dossier envoyé avec succès !</strong><br>Un e-mail récapitulatif avec mon CV et mes travaux a été transmis à <strong>${escapeHtml(email)}</strong>.`;
-                    emailInput.value = '';
-                } else {
-                    resBox.style.borderLeftColor = 'var(--sd-red)';
-                    resBox.innerHTML = `❌ ${res.message || "Impossible d'envoyer le message."}`;
-                }
-            } catch(e) { 
-                resBox.style.borderLeftColor = 'var(--sd-red)';
-                resBox.innerHTML = "❌ Erreur de connexion avec le serveur."; 
-            } finally {
-                btn.innerHTML = `🚀 Recevoir mon dossier`;
-                btn.disabled = false;
-            }
-        }
+    <!-- MODULE CONTACT / DEMANDE DE CANDIDATURE -->
+    <div class="glass-card rounded-3xl p-8 md:p-12 max-w-4xl mx-auto text-center relative overflow-hidden">
+      <h3 class="text-2xl md:text-3xl font-bold mb-4">Recevez mon dossier complet par e-mail</h3>
+      <p class="text-slate-400 text-sm mb-8 max-w-lg mx-auto">
+        Entrez votre adresse professionnelle pour recevoir instantanément mon CV, ma lettre de motivation personnalisée et mes cas d'usage Data.
+      </p>
 
-        // --- 2. SAV ENGINE (REPONSES HUMAINES) ---
-        function triggerSAV(text) {
-            document.getElementById('savInput').value = text;
-            askSAV();
-        }
+      <form id="form-email" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input type="email" id="email-input" required placeholder="nom@sport-decouverte.com" 
+          class="flex-1 bg-slate-900/90 border border-slate-700 focus:border-cyan-400 rounded-xl px-4 py-3.5 text-sm outline-none">
+        <button type="submit" id="email-btn" 
+          class="bg-white text-slate-950 font-bold px-6 py-3.5 rounded-xl hover:bg-slate-200 transition-all flex items-center justify-center gap-2">
+          <span>Recevoir</span>
+          <i class="fa-solid fa-envelope"></i>
+        </button>
+      </form>
+      <div id="email-status" class="mt-4 text-xs"></div>
+    </div>
 
-        async function askSAV() {
-            const savInput = document.getElementById('savInput');
-            const msg = savInput.value.trim();
-            const resBox = document.getElementById('resSAV');
-            const btn = document.getElementById('btnSAV');
-            
-            if(!msg) {
-                resBox.style.display = 'block';
-                resBox.style.borderLeftColor = 'var(--sd-red)';
-                resBox.innerHTML = "⚠️ Veuillez décrire la situation à traiter.";
-                return;
-            }
-            
-            btn.innerHTML = `<span class="spinner"></span> Analyse...`;
-            btn.disabled = true;
-            resBox.style.display = 'block'; 
-            resBox.style.borderLeftColor = 'var(--sd-blue)';
-            resBox.innerHTML = "🔍 Analyse métier et formulation de la réponse personnalisée...";
-            
-            try {
-                const req = await fetch('/api/ia-sav', { 
-                    method: 'POST', 
-                    headers: {'Content-Type': 'application/json'}, 
-                    body: JSON.stringify({ message: msg }) 
-                });
-                const res = await req.json();
-                
-                const replyText = (res.data && res.data.reply) ? res.data.reply : res.message;
-                resBox.style.borderLeftColor = 'var(--sd-red)';
-                resBox.innerHTML = replyText.replace(/\n/g, '<br>');
-            } catch(e) { 
-                resBox.style.borderLeftColor = 'var(--sd-red)';
-                resBox.innerHTML = "❌ Le service de résolution est momentanément indisponible."; 
-            } finally {
-                btn.innerHTML = `⚡ Obtenir la réponse détaillée`;
-                btn.disabled = false;
-            }
-        }
+  </main>
 
-        // --- 3. JUMEAU NUMÉRIQUE ---
-        function askTwinSuggested(question) {
-            document.getElementById('twinInput').value = question;
-            askTwin();
-        }
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-white/5 py-8 text-center text-xs text-slate-500">
+    <p>© 2026 Pierre Clain — Conçu avec Node.js, FastAPI, Scikit-Learn & Tailwind CSS.</p>
+  </footer>
 
-        async function askTwin() {
-            const input = document.getElementById('twinInput');
-            const msg = input.value.trim();
-            const chatBox = document.getElementById('chatBox');
-            if(!msg) return;
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // 1. Gestion SAV
+    document.getElementById('form-sav').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = document.getElementById('sav-input');
+      const btn = document.getElementById('sav-btn');
+      const resultBox = document.getElementById('sav-result');
+      const resultText = document.getElementById('sav-text');
+      const confidenceTag = document.getElementById('sav-confidence');
 
-            chatBox.innerHTML += `<div class="msg user">${escapeHtml(msg)}</div>`;
-            const loaderId = "load-" + Date.now();
-            chatBox.innerHTML += `<div id="${loaderId}" class="msg ia"><span class="spinner" style="border-top-color: var(--sd-red);"></span> Pierre réfléchit à sa réponse...</div>`;
-            input.value = ""; 
-            chatBox.scrollTop = chatBox.scrollHeight;
+      if(!input.value.trim()) return;
 
-            try {
-                const req = await fetch('/api/ia-twin', { 
-                    method: 'POST', 
-                    headers: {'Content-Type': 'application/json'}, 
-                    body: JSON.stringify({ question: msg }) 
-                });
-                const res = await req.json();
-                
-                const replyText = (res.data && res.data.reply) ? res.data.reply : (res.message || "Je reste disponible pour répondre à vos questions.");
-                
-                const loaderElem = document.getElementById(loaderId);
-                if(loaderElem) loaderElem.remove();
-                
-                chatBox.innerHTML += `<div class="msg ia"><strong>Pierre Clain (IA) :</strong> ${escapeHtml(replyText)}</div>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            } catch(e) {
-                const loaderElem = document.getElementById(loaderId);
-                if(loaderElem) loaderElem.innerHTML = "❌ Une erreur est survenue lors de la réponse.";
-            }
-        }
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Traitement...`;
 
-        // Anti-XSS
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.innerText = text;
-            return div.innerHTML;
-        }
-
-        document.getElementById('twinInput').addEventListener('keypress', e => { 
-            if(e.key === 'Enter') askTwin(); 
+      try {
+        const res = await fetch('/api/ia-sav', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: input.value })
         });
-    </script>
+        const data = await res.json();
+        
+        resultBox.classList.remove('hidden');
+        resultText.innerText = data.data?.reply || data.message;
+        confidenceTag.innerText = data.confidence ? `Confiance: ${Math.round(data.confidence * 100)}%` : 'Mode Fallback';
+      } catch (err) {
+        resultBox.classList.remove('hidden');
+        resultText.innerText = "Erreur de connexion au serveur.";
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>Analyser la requête</span><i class="fa-solid fa-paper-plane text-xs"></i>`;
+      }
+    });
+
+    // 2. Gestion Jumeau Numérique
+    document.getElementById('form-twin').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = document.getElementById('twin-input');
+      const btn = document.getElementById('twin-btn');
+      const resultBox = document.getElementById('twin-result');
+      const resultText = document.getElementById('twin-text');
+
+      if(!input.value.trim()) return;
+
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Génération...`;
+
+      try {
+        const res = await fetch('/api/ia-twin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: input.value })
+        });
+        const data = await res.json();
+        
+        resultBox.classList.remove('hidden');
+        resultText.innerText = data.data?.reply || data.message;
+      } catch (err) {
+        resultBox.classList.remove('hidden');
+        resultText.innerText = "Erreur de connexion au Jumeau Numérique.";
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>Interroger l'IA Pierre</span><i class="fa-solid fa-comments text-xs"></i>`;
+      }
+    });
+
+    // 3. Gestion Envoi d'Email
+    document.getElementById('form-email').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = document.getElementById('email-input');
+      const btn = document.getElementById('email-btn');
+      const status = document.getElementById('email-status');
+
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Envoi...`;
+
+      try {
+        const res = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: input.value })
+        });
+        const data = await res.json();
+        
+        if(data.success) {
+          status.className = "mt-4 text-xs text-emerald-400 font-semibold";
+          status.innerText = "✅ Candidature envoyée avec succès dans votre boîte mail !";
+          input.value = "";
+        } else {
+          status.className = "mt-4 text-xs text-rose-400";
+          status.innerText = "❌ " + (data.message || "Erreur lors de l'envoi.");
+        }
+      } catch (err) {
+        status.className = "mt-4 text-xs text-rose-400";
+        status.innerText = "❌ Serveur indisponible.";
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>Recevoir</span><i class="fa-solid fa-envelope"></i>`;
+      }
+    });
+  </script>
 </body>
 </html>
