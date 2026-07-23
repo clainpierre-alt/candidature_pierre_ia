@@ -4,7 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pierre Clain — Candidature & Control Tower IA</title>
+<!-- SÉLECTEUR DE PROFIL RECRUTEUR (PITCH EXPRESS) -->
+<div class="max-w-3xl mx-auto mb-10">
+  <p class="text-xs uppercase tracking-widest text-slate-400 text-center font-bold mb-3">
+    <i class="fa-solid fa-sliders mr-1 text-cyan-400"></i> Personnalisez l'expérience selon votre profil :
+  </p>
   
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-1.5 glass-card rounded-2xl border border-white/10">
+    <!-- Option RH -->
+    <button onclick="setPersona('rh')" id="persona-btn-rh" 
+      class="persona-btn active flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-semibold transition-all duration-300">
+      <i class="fa-solid fa-user-check text-base"></i>
+      <span>RH & Recrutement</span>
+    </button>
+
+    <!-- Option Tech / Data -->
+    <button onclick="setPersona('tech')" id="persona-btn-tech" 
+      class="persona-btn flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-semibold transition-all duration-300">
+      <i class="fa-solid fa-code text-base"></i>
+      <span>Lead Data & Tech</span>
+    </button>
+
+    <!-- Option Ops / Business -->
+    <button onclick="setPersona('ops')" id="persona-btn-ops" 
+      class="persona-btn flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-semibold transition-all duration-300">
+      <i class="fa-solid fa-chart-pie text-base"></i>
+      <span>Ops & Direction</span>
+    </button>
+  </div>
+</div>
+
+<!-- BANNIÈRE DE PITCH DYNAMIQUE -->
+<div id="persona-banner" class="glass-card rounded-2xl p-6 mb-12 border-l-4 border-cyan-400 transition-all duration-500">
+  <div class="flex items-start gap-4">
+    <div id="persona-icon" class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl shrink-0">
+      <i class="fa-solid fa-user-check"></i>
+    </div>
+    <div>
+      <h4 id="persona-title" class="font-bold text-base text-white mb-1">
+        Focus : Leadership, Management & Culture d'Entreprise
+      </h4>
+      <p id="persona-desc" class="text-sm text-slate-300 leading-relaxed">
+        Ancien Manager d'Exploitation Decathlon, Pierre allie écoute client, gestion des équipes terrain et vision globale des opérations.
+      </p>
+      <div id="persona-tags" class="flex flex-wrap gap-2 mt-3">
+        <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">Soft Skills</span>
+        <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">Management</span>
+        <span class="text-[11px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">Culture Decathlon</span>
+      </div>
+    </div>
+  </div>
+</div>
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
