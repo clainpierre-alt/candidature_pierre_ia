@@ -240,6 +240,7 @@
     }
 
     // 1. CHATBOT JUMEAU
+   // 1. CHATBOT JUMEAU CONNECTÉ À GEMINI (JSONP)
     function askTwin() {
       const input = document.getElementById('twin-input');
       const question = input.value.trim();
@@ -248,36 +249,51 @@
       lastUserQuery = question;
       const chatBox = document.getElementById('chat-box');
       
-      // Affiche la question
+      // Affiche la question de l'utilisateur
       chatBox.innerHTML += `<div class="message msg-user">${question}</div>`;
       input.value = "";
       
-      // Simule la réflexion de l'IA (0.6 secondes)
-      setTimeout(() => {
-        let reply = "Je suis Pierre CLAIN, Manager d'Exploitation et Data Analyst certifié.";
-        const qLower = question.toLowerCase();
-        
-        if (qLower.includes("p&l") || qLower.includes("decathlon") || qLower.includes("manager")) {
-          reply = "Chez Decathlon, j'ai piloté l'exploitation : gestion du compte de résultat (P&L), management d'équipe, et optimisation des process logistiques et commerciaux.";
-        } else if (qLower.includes("data") || qLower.includes("sql") || qLower.includes("python")) {
-          reply = "J'ai validé ma certification Data Analyst chez DataBird. Je maîtrise SQL, Python (Pandas), la Data Visualisation (Power BI) et je peux construire des pipelines automatisés.";
-        } else if (qLower.includes("sport découverte")) {
-          reply = "Sport Découverte allie mes deux passions : le sport et le digital. Mon profil hybride (terrain + data) me permet de comprendre les partenaires tout en digitalisant les process.";
+      // Affiche un loader le temps que Gemini réponde
+      const loaderId = "loader-" + Date.now();
+      chatBox.innerHTML += `<div id="${loaderId}" class="message msg-twin"><i class="fa-solid fa-spinner fa-spin"></i> Gemini réfléchit...</div>`;
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Création de la requête JSONP
+      const callbackName = 'geminiCallback_' + Date.now();
+      
+      // La fonction qui sera appelée quand Google Apps Script répondra
+      window[callbackName] = function(response) {
+        const loader = document.getElementById(loaderId);
+        let replyText = "Désolé, erreur de connexion.";
+
+        if (response && response.success && response.data && response.data.reply) {
+          replyText = response.data.reply;
         }
         
-        lastTwinReply = reply;
-        chatBox.innerHTML += `
+        lastTwinReply = replyText;
+
+        // On remplace le loader par la vraie réponse
+        loader.outerHTML = `
           <div class="message msg-twin">
-            ${reply}<br>
+            ${replyText}<br>
             <span class="mlops-badge" onclick="retrainML()">
               <i class="fa-solid fa-thumbs-down"></i> Signaler erreur (Test MLOps)
             </span>
           </div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
-      }, 600);
+        
+        // Nettoyage
+        delete window[callbackName];
+      };
 
-      // Envoi au backend (Logs)
-      callAppsScript({ action: "askTwin", question: question, email: "visiteur@ui.com" });
+      // Création de la balise script pour déclencher la requête GET vers ton Apps Script
+      const script = document.createElement('script');
+      // On encode la question pour l'URL
+      const encodedQuestion = encodeURIComponent(question);
+      // On construit l'URL avec les paramètres GET
+      script.src = `${APPS_SCRIPT_URL}?action=askTwin&question=${encodedQuestion}&email=visiteur@ui.com&callback=${callbackName}`;
+      
+      document.body.appendChild(script);
     }
 
     function retrainML() {
