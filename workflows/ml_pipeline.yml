@@ -1,0 +1,32 @@
+name: Re-train ML Model
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install Dependencies
+      run: |
+        pip install -r requirements.txt
+        
+    - name: Train Scikit-Learn Model
+      run: |
+        python train_model.py
+        
+    - name: Commit Updated Model
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add model/intent_classifier.joblib
+        git commit -m "🤖 Auto-update ML Scikit-Learn Model" || exit 0
+        git push
