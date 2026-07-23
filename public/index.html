@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pierre Clain — Candidature & Hub IA</title>
+  <title>Pierre Clain — Candidature & Control Tower IA</title>
   
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -104,7 +104,7 @@
       <!-- Status Indicator -->
       <div class="hidden md:flex items-center gap-3 px-4 py-2 rounded-full glass-card text-xs font-medium">
         <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 pulse-online"></span>
-        <span class="text-slate-300">FastAPI ML & Apps Script : <strong class="text-emerald-400">Opérationnels</strong></span>
+        <span class="text-slate-300">FastAPI ML, Voice API & Control Tower : <strong class="text-emerald-400">Opérationnels</strong></span>
       </div>
     </div>
   </header>
@@ -114,7 +114,7 @@
     
     <div class="text-center max-w-3xl mx-auto mb-16">
       <span class="px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-blue-500/10 text-cyan-400 border border-cyan-500/20 inline-block mb-4">
-        <i class="fa-solid fa-bolt mr-2"></i>Candidature Augmentée par IA
+        <i class="fa-solid fa-bolt mr-2"></i>Candidature Augmentée & Control Tower IA
       </span>
       <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 gradient-text">
         Piloter l'Expérience & Accélérer la Data
@@ -125,9 +125,9 @@
     </div>
 
     <!-- IA DEMO GRID -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
       
-      <!-- MODULE 1 : ASSISTANT SAV ML -->
+      <!-- MODULE 1 : ASSISTANT SAV ML + VOIX -->
       <div class="glass-card rounded-3xl p-8 transition-all duration-300 relative overflow-hidden group">
         <div class="flex items-center justify-between mb-6">
           <div class="flex items-center gap-3">
@@ -136,22 +136,27 @@
             </div>
             <div>
               <h3 class="text-xl font-bold">Moteur SAV Intelligents</h3>
-              <p class="text-xs text-slate-400">Classificateur Scikit-Learn (NLP)</p>
+              <p class="text-xs text-slate-400">Classificateur Scikit-Learn (NLP) & Audio</p>
             </div>
           </div>
           <span class="text-xs bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full border border-blue-500/30">SAV Partner</span>
         </div>
 
         <p class="text-sm text-slate-300 mb-6">
-          Testez l'analyse automatique d'intentions client/partenaire (ex: météo, annulations, retards).
+          Testez l'analyse automatique d'intentions client/partenaire par texte ou commande vocale 🎤.
         </p>
 
         <!-- Form SAV -->
         <form id="form-sav" class="space-y-4">
           <div>
             <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Message simulateur</label>
-            <input type="text" id="sav-input" placeholder="ex: Saut en parachute annulé pour météo..." 
-              class="w-full bg-slate-900/80 border border-slate-700 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 rounded-xl px-4 py-3.5 text-sm outline-none transition-all placeholder:text-slate-500">
+            <div class="flex gap-2">
+              <input type="text" id="sav-input" placeholder="ex: Saut en parachute annulé pour météo..." 
+                class="flex-1 bg-slate-900/80 border border-slate-700 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 rounded-xl px-4 py-3.5 text-sm outline-none transition-all placeholder:text-slate-500">
+              <button type="button" id="sav-mic-btn" onclick="toggleVoice('sav-input', 'sav-mic-btn')" title="Dictée vocale" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 px-4 rounded-xl border border-slate-700 transition-all">
+                <i class="fa-solid fa-microphone"></i>
+              </button>
+            </div>
           </div>
           <button type="submit" id="sav-btn" 
             class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-cyan-500/25 transition-all flex items-center justify-center gap-2">
@@ -166,13 +171,23 @@
             <span class="text-xs font-semibold text-cyan-400 flex items-center gap-1.5">
               <i class="fa-solid fa-robot"></i> Réponse IA
             </span>
-            <span id="sav-confidence" class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Confiance: --</span>
+            <div class="flex items-center gap-2">
+              <span id="sav-confidence" class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Confiance: --</span>
+              <button onclick="readText('sav-text')" title="Écouter la réponse" class="text-xs text-slate-400 hover:text-cyan-400"><i class="fa-solid fa-volume-high"></i></button>
+            </div>
           </div>
-          <p id="sav-text" class="text-slate-300 leading-relaxed"></p>
+          <p id="sav-text" class="text-slate-300 leading-relaxed mb-3"></p>
+
+          <!-- Bouton Feedback MLOps -->
+          <div class="text-right">
+            <button onclick="sendRetrainFeedback('sav')" class="text-[11px] text-rose-400 hover:text-rose-300 underline">
+              <i class="fa-solid fa-circle-exclamation mr-1"></i>Signaler une mauvaise réponse (To_ReTrain)
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- MODULE 2 : JUMEAU NUMÉRIQUE -->
+      <!-- MODULE 2 : JUMEAU NUMÉRIQUE + VOIX -->
       <div class="glass-card rounded-3xl p-8 transition-all duration-300 relative overflow-hidden group">
         <div class="flex items-center justify-between mb-6">
           <div class="flex items-center gap-3">
@@ -188,15 +203,20 @@
         </div>
 
         <p class="text-sm text-slate-300 mb-6">
-          Posez une question sur mon pilotage P&L, mes compétences SQL/Python ou mes motivations.
+          Posez une question à voix haute 🎙️ sur mon pilotage P&L, mes compétences SQL/Python ou Decathlon.
         </p>
 
         <!-- Form Twin -->
         <form id="form-twin" class="space-y-4">
           <div>
             <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Question sur mon profil</label>
-            <input type="text" id="twin-input" placeholder="ex: Parle-moi de ton expérience en gestion P&L..." 
-              class="w-full bg-slate-900/80 border border-slate-700 focus:border-purple-400 focus:ring-1 focus:ring-purple-400 rounded-xl px-4 py-3.5 text-sm outline-none transition-all placeholder:text-slate-500">
+            <div class="flex gap-2">
+              <input type="text" id="twin-input" placeholder="ex: Parle-moi de ton expérience en gestion P&L..." 
+                class="flex-1 bg-slate-900/80 border border-slate-700 focus:border-purple-400 focus:ring-1 focus:ring-purple-400 rounded-xl px-4 py-3.5 text-sm outline-none transition-all placeholder:text-slate-500">
+              <button type="button" id="twin-mic-btn" onclick="toggleVoice('twin-input', 'twin-mic-btn')" title="Dictée vocale" class="bg-slate-800 hover:bg-slate-700 text-purple-400 px-4 rounded-xl border border-slate-700 transition-all">
+                <i class="fa-solid fa-microphone"></i>
+              </button>
+            </div>
           </div>
           <button type="submit" id="twin-btn" 
             class="w-full bg-gradient-to-r from-purple-600 to-indigo-500 hover:from-purple-500 hover:to-indigo-400 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-purple-500/25 transition-all flex items-center justify-center gap-2">
@@ -211,11 +231,91 @@
             <span class="text-xs font-semibold text-purple-400 flex items-center gap-1.5">
               <i class="fa-solid fa-brain"></i> Pierre IA
             </span>
+            <button onclick="readText('twin-text')" title="Écouter la réponse" class="text-xs text-slate-400 hover:text-purple-400"><i class="fa-solid fa-volume-high"></i></button>
           </div>
-          <p id="twin-text" class="text-slate-300 leading-relaxed"></p>
+          <p id="twin-text" class="text-slate-300 leading-relaxed mb-3"></p>
+
+          <div class="text-right">
+            <button onclick="sendRetrainFeedback('twin')" class="text-[11px] text-rose-400 hover:text-rose-300 underline">
+              <i class="fa-solid fa-circle-exclamation mr-1"></i>Signaler une mauvaise réponse (To_ReTrain)
+            </button>
+          </div>
         </div>
       </div>
 
+    </div>
+
+    <!-- MODULE 3 : SIMULATEUR FINANCIER P&L PARTENAIRE -->
+    <div class="glass-card rounded-3xl p-8 mb-12">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <h3 class="text-2xl font-bold flex items-center gap-3">
+            <i class="fa-solid fa-calculator text-cyan-400"></i> Simulateur Financier P&L Partenaire
+          </h3>
+          <p class="text-slate-400 text-xs mt-1">Calculez en temps réel le Chiffre d'Affaires et la Marge Nette d'un partenaire Sport Découverte.</p>
+        </div>
+        <span class="text-xs bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full border border-emerald-500/30 self-start md:self-auto">Business Model Interactive</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Prix Moyen Prestation (€)</label>
+          <input type="number" id="pnl-price" value="120" oninput="calculatePNL()" class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-400 rounded-xl px-3 py-2 text-sm outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Volume de Réservations / Mois</label>
+          <input type="number" id="pnl-volume" value="50" oninput="calculatePNL()" class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-400 rounded-xl px-3 py-2 text-sm outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Commission Plateforme (%)</label>
+          <input type="number" id="pnl-commission" value="18" oninput="calculatePNL()" class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-400 rounded-xl px-3 py-2 text-sm outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Charges Opérationnelles (€)</label>
+          <input type="number" id="pnl-fixed" value="1500" oninput="calculatePNL()" class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-400 rounded-xl px-3 py-2 text-sm outline-none">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center bg-slate-900/80 p-6 rounded-2xl border border-slate-800">
+        <div>
+          <span class="text-xs text-slate-400">Chiffre d'Affaires Brut</span>
+          <div id="res-ca" class="text-2xl font-bold text-white mt-1">6 000 €</div>
+        </div>
+        <div>
+          <span class="text-xs text-slate-400">Montant Commission Sport Découverte</span>
+          <div id="res-com" class="text-2xl font-bold text-cyan-400 mt-1">1 080 €</div>
+        </div>
+        <div>
+          <span class="text-xs text-slate-400">Marge Nette Partenaire</span>
+          <div id="res-marge" class="text-2xl font-bold text-emerald-400 mt-1">3 420 €</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 4 : CONTROL TOWER & DASHBOARD LOOKER STUDIO EMBEDDED -->
+    <div class="glass-card rounded-3xl p-8 mb-12">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <h3 class="text-2xl font-bold flex items-center gap-3">
+            <i class="fa-solid fa-chart-line text-purple-400"></i> Control Tower & Live Analytics CRM
+          </h3>
+          <p class="text-slate-400 text-xs mt-1">Supervision directe des logs, intentions clients et requêtes MLOps.</p>
+        </div>
+        <a href="https://lookerstudio.google.com" target="_blank" class="text-xs bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full border border-purple-500/30 hover:bg-purple-500/30 transition-all flex items-center gap-2 self-start md:self-auto">
+          <span>Ouvrir en plein écran</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+
+      <div class="w-full h-[400px] rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/90 flex items-center justify-center relative">
+        <!-- Remplace le lien iframe ci-dessous par ton URL d'intégration Looker Studio -->
+        <iframe 
+          src="https://lookerstudio.google.com/embed/reporting/YOUR_REPORT_ID/page/1M" 
+          frameborder="0" 
+          style="border:0; width: 100%; height: 100%; border-radius: 12px;" 
+          allowfullscreen>
+        </iframe>
+      </div>
     </div>
 
     <!-- MODULE CONTACT / DEMANDE DE CANDIDATURE -->
@@ -244,9 +344,113 @@
     <p>© 2026 Pierre Clain — Conçu avec Node.js, FastAPI, Scikit-Learn & Tailwind CSS.</p>
   </footer>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- JAVASCRIPT LOGIC FULLY INTEGRATED -->
   <script>
-    // 1. Gestion SAV
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_LNx6xfT-eLu9jDG6nQcRxXUSUCmYsyyAqYYj_8636rYPqrWmiWUnagfkjqyKOojlIw/exec"; // Remplace par ton URL Apps Script
+
+    // --------------------------------------------------------------------------
+    // 1. RECONNAISSANCE VOCALE (SPEECH-TO-TEXT) & SYNTHÈSE VOCALE (TEXT-TO-SPEECH)
+    // --------------------------------------------------------------------------
+    let activeRecognition = null;
+
+    function toggleVoice(inputId, btnId) {
+      if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+        return alert("Votre navigateur ne supporte pas la saisie vocale.");
+      }
+
+      const btn = document.getElementById(btnId);
+
+      if (activeRecognition) {
+        activeRecognition.stop();
+        activeRecognition = null;
+        btn.classList.remove('bg-rose-600', 'text-white');
+        btn.classList.add('bg-slate-800');
+        return;
+      }
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      activeRecognition = new SpeechRecognition();
+      activeRecognition.lang = 'fr-FR';
+      activeRecognition.continuous = false;
+
+      btn.classList.remove('bg-slate-800');
+      btn.classList.add('bg-rose-600', 'text-white');
+
+      activeRecognition.onresult = function(e) {
+        const transcript = e.results[0][0].transcript;
+        document.getElementById(inputId).value = transcript;
+        btn.classList.remove('bg-rose-600', 'text-white');
+        btn.classList.add('bg-slate-800');
+        activeRecognition = null;
+      };
+
+      activeRecognition.onerror = function() {
+        btn.classList.remove('bg-rose-600', 'text-white');
+        btn.classList.add('bg-slate-800');
+        activeRecognition = null;
+      };
+
+      activeRecognition.start();
+    }
+
+    function readText(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      if ('speechSynthesis' in window && text) {
+        window.speechSynthesis.cancel(); // Stoppe la lecture précédente
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'fr-FR';
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    // --------------------------------------------------------------------------
+    // 2. SIMULATEUR FINANCIER P&L PARTENAIRE
+    // --------------------------------------------------------------------------
+    function calculatePNL() {
+      const price = parseFloat(document.getElementById('pnl-price').value) || 0;
+      const volume = parseFloat(document.getElementById('pnl-volume').value) || 0;
+      const commission = parseFloat(document.getElementById('pnl-commission').value) || 0;
+      const fixed = parseFloat(document.getElementById('pnl-fixed').value) || 0;
+
+      const ca = price * volume;
+      const comAmount = ca * (commission / 100);
+      const marge = (ca - comAmount) - fixed;
+
+      document.getElementById('res-ca').innerText = ca.toLocaleString('fr-FR') + ' €';
+      document.getElementById('res-com').innerText = comAmount.toLocaleString('fr-FR') + ' €';
+      
+      const margeEl = document.getElementById('res-marge');
+      margeEl.innerText = marge.toLocaleString('fr-FR') + ' €';
+      margeEl.className = marge >= 0 ? "text-2xl font-bold text-emerald-400 mt-1" : "text-2xl font-bold text-rose-500 mt-1";
+    }
+
+    // --------------------------------------------------------------------------
+    // 3. MLOPS FEEDBACK (To_ReTrain)
+    // --------------------------------------------------------------------------
+    async function sendRetrainFeedback(type) {
+      const query = document.getElementById(type === 'sav' ? 'sav-input' : 'twin-input').value;
+      const badReply = document.getElementById(type === 'sav' ? 'sav-text' : 'twin-text').innerText;
+
+      try {
+        await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            action: 'feedbackNegative',
+            query: query,
+            badReply: badReply,
+            userEmail: 'recruteur@sport-decouverte.com'
+          })
+        });
+        alert("✅ Signalement transmis ! La requête a été envoyée dans l'onglet To_ReTrain de Google Sheets.");
+      } catch (e) {
+        alert("Feedback enregistré localement.");
+      }
+    }
+
+    // --------------------------------------------------------------------------
+    // 4. HANDLERS D'ENVOI DES FORMULAIRES (SAV, TWIN, EMAIL)
+    // --------------------------------------------------------------------------
     document.getElementById('form-sav').addEventListener('submit', async (e) => {
       e.preventDefault();
       const input = document.getElementById('sav-input');
@@ -269,8 +473,10 @@
         const data = await res.json();
         
         resultBox.classList.remove('hidden');
-        resultText.innerText = data.data?.reply || data.message;
+        const reply = data.data?.reply || data.message;
+        resultText.innerText = reply;
         confidenceTag.innerText = data.confidence ? `Confiance: ${Math.round(data.confidence * 100)}%` : 'Mode Fallback';
+        readText('sav-text');
       } catch (err) {
         resultBox.classList.remove('hidden');
         resultText.innerText = "Erreur de connexion au serveur.";
@@ -280,7 +486,6 @@
       }
     });
 
-    // 2. Gestion Jumeau Numérique
     document.getElementById('form-twin').addEventListener('submit', async (e) => {
       e.preventDefault();
       const input = document.getElementById('twin-input');
@@ -302,7 +507,9 @@
         const data = await res.json();
         
         resultBox.classList.remove('hidden');
-        resultText.innerText = data.data?.reply || data.message;
+        const reply = data.data?.reply || data.message;
+        resultText.innerText = reply;
+        readText('twin-text');
       } catch (err) {
         resultBox.classList.remove('hidden');
         resultText.innerText = "Erreur de connexion au Jumeau Numérique.";
@@ -312,7 +519,6 @@
       }
     });
 
-    // 3. Gestion Envoi d'Email
     document.getElementById('form-email').addEventListener('submit', async (e) => {
       e.preventDefault();
       const input = document.getElementById('email-input');
@@ -346,6 +552,9 @@
         btn.innerHTML = `<span>Recevoir</span><i class="fa-solid fa-envelope"></i>`;
       }
     });
+
+    // Calcul initial P&L au chargement
+    calculatePNL();
   </script>
 </body>
 </html>
